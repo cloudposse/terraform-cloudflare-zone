@@ -106,8 +106,7 @@ module "label" {
   # version = "x.x.x"
   namespace  = "eg"
   stage      = "prod"
-  name       = "bastion"
-  attributes = ["public"]
+  name       = "cf"
   delimiter  = "-"
 }
 
