@@ -14,6 +14,18 @@ resource "cloudflare_zone" "default" {
   type       = var.type
 }
 
+# // Records
+# resource "cloudflare_record" "this" {
+#   for_each = { for rs in toset(var.records) : "${rs[0]} ${rs[3]} ${rs[1]}" => rs }
+#   zone_id  = cloudflare_zone.this.id
+#   name     = element(each.value, 0)
+#   value    = element(each.value, 1)
+#   priority = element(each.value, 2)
+#   type     = element(each.value, 3)
+#   proxied  = element(each.value, 4)
+#   ttl      = element(each.value, 5)
+# }
+
 resource "cloudflare_argo" "default" {
   count = local.argo_enabed ? 1 : 0
 
