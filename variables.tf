@@ -9,11 +9,26 @@ variable "zone_enabled" {
   default     = true
 }
 
-# variable "records" {
-#   description = "DNS Records of this zone."
-#   type        = list(any)
-#   default     = null
-# }
+variable "records" {
+  type        = list(any)
+  default     = null
+  description = <<-DOC
+    name:
+      The name of the record.
+    type:
+      The type of the record.
+    value:
+      The value of the record.
+    ttl:
+      The TTL of the record.
+      Default value: 1.
+    priority:
+      The priority of the record. 
+    proxied:
+      Whether the record gets Cloudflare's origin protection. 
+      Default value: false.
+  DOC
+}
 
 variable "paused" {
   type        = bool
@@ -42,7 +57,7 @@ variable "type" {
 variable "argo_enabled" {
   type        = bool
   description = "Whether to enable Cloudflare Argo for DNS zone"
-  default     = true
+  default     = false
 }
 
 variable "argo_tiered_caching_enabled" {
@@ -58,8 +73,13 @@ variable "argo_smart_routing_enabled" {
 }
 
 variable "healthchecks" {
-  type    = list(any)
-  default = null
+  type        = list(any)
+  default     = null
+  description = <<-DOC
+  A list of maps of Health Checks rules. 
+  The values of map is fully complated with `cloudflare_healthcheck` resource.
+  To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/healthcheck
+  DOC
 }
 
 variable "firewall_rules" {

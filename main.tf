@@ -1,11 +1,30 @@
 locals {
-  tiered_caching = local.argo_enabed && var.argo_tiered_caching_enabled ? "on" : "off"
-  smart_routing  = local.argo_enabed && var.argo_smart_routing_enabled ? "on" : "off"
-  argo_enabed    = module.this.enabled && var.argo_enabled
+  tiered_caching  = local.argo_enabed && var.argo_tiered_caching_enabled ? "on" : "off"
+  smart_routing   = local.argo_enabed && var.argo_smart_routing_enabled ? "on" : "off"
+  argo_enabed     = module.this.enabled && var.argo_enabled
+  zone_enabled    = module.this.enabled && var.zone_enabled
+  zone_exists     = module.this.enabled && !var.zone_enabled
+  records_enabled = module.this.enabled && length(var.records) > 0
+  zone_id         = local.zone_enabled ? join("", cloudflare_zone.default.*.id) : (local.zone_exists ? lookup(data.cloudflare_zones.default[0].zones[0], "id") : null)
+  records = local.records_enabled ? {
+    for record in flatten(var.records) :
+    format("%s%s",
+      record.name,
+      record.type,
+    ) => record
+  } : {}
+}
+
+data "cloudflare_zones" "default" {
+  count = local.zone_exists ? 1 : 0
+
+  filter {
+    name = var.zone
+  }
 }
 
 resource "cloudflare_zone" "default" {
-  count = module.this.enabled ? 1 : 0
+  count = local.zone_enabled ? 1 : 0
 
   zone       = var.zone
   paused     = var.paused
@@ -14,22 +33,22 @@ resource "cloudflare_zone" "default" {
   type       = var.type
 }
 
-# // Records
-# resource "cloudflare_record" "this" {
-#   for_each = { for rs in toset(var.records) : "${rs[0]} ${rs[3]} ${rs[1]}" => rs }
-#   zone_id  = cloudflare_zone.this.id
-#   name     = element(each.value, 0)
-#   value    = element(each.value, 1)
-#   priority = element(each.value, 2)
-#   type     = element(each.value, 3)
-#   proxied  = element(each.value, 4)
-#   ttl      = element(each.value, 5)
-# }
+resource "cloudflare_record" "default" {
+  for_each = local.records
+
+  zone_id  = local.zone_id
+  name     = each.value.name
+  type     = each.value.type
+  value    = each.value.value
+  priority = lookup(each.value, "priority", null)
+  proxied  = lookup(each.value, "proxied", false)
+  ttl      = lookup(each.value, "ttl", 1)
+}
 
 resource "cloudflare_argo" "default" {
   count = local.argo_enabed ? 1 : 0
 
-  zone_id        = join("", cloudflare_zone.default.*.id)
+  zone_id        = local.zone_id
   tiered_caching = local.tiered_caching
   smart_routing  = local.smart_routing
 }

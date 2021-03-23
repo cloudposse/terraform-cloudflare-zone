@@ -12,7 +12,7 @@ locals {
 resource "cloudflare_filter" "default" {
   for_each = local.firewall_rules
 
-  zone_id     = join("", cloudflare_zone.default.*.id)
+  zone_id     = local.zone_id
   description = each.value.description
   expression  = each.value.expression
   paused      = lookup(each.value, "paused", null)
@@ -22,7 +22,7 @@ resource "cloudflare_filter" "default" {
 resource "cloudflare_firewall_rule" "default" {
   for_each = local.firewall_rules
 
-  zone_id     = join("", cloudflare_zone.default.*.id)
+  zone_id     = local.zone_id
   description = each.value.description
   action      = each.value.action
   priority    = lookup(each.value, "priority", null)
@@ -34,8 +34,4 @@ resource "cloudflare_firewall_rule" "default" {
     filter.id
     if filter.description == each.value.description
   ][0]
-
 }
-
-# output id - Filter identifier.
-# output id - Firewall Rule identifier.

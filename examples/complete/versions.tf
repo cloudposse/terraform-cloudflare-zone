@@ -1,10 +1,10 @@
 terraform {
-  required_version = ">= 0.12.26"
+  required_version = ">= 0.13"
 
   required_providers {
-    local = {
-      source  = "hashicorp/local"
-      version = ">= 1.2"
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = ">= 2.19"
     }
   }
 }

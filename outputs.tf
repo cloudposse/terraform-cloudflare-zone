@@ -1,6 +1,25 @@
 output "id" {
   description = "The zone ID."
-  value       = join("", cloudflare_zone.default.*.id)
+  value       = try(local.zone_id, null)
+}
+
+output "record_hostnames_to_ids" {
+  description = "A map of the zone record hostnames to IDs."
+  value = {
+    for record in cloudflare_record.default :
+    record.hostname => record.id
+    if local.records_enabled
+  }
+}
+
+output "filter_ids" {
+  description = "A list of filter IDs."
+  value       = try(values(cloudflare_filter.default)[*]["id"], null)
+}
+
+output "firewall_rule_ids" {
+  description = "A list of firewall rule IDs."
+  value       = try(values(cloudflare_firewall_rule.default)[*]["id"], null)
 }
 
 output "plan" {

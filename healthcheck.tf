@@ -12,8 +12,8 @@ locals {
 resource "cloudflare_healthcheck" "default" {
   for_each = local.healthchecks
 
-  zone_id                      = join("", cloudflare_zone.default.*.id)
-  name                         = each.value.name
+  zone_id                      = local.zone_id
+  name                         = lookup(each.value, "name", null) == null ? each.key : each.value.name
   description                  = lookup(each.value, "description", null) == null ? "Managed by Terraform" : each.value.description
   address                      = each.value.address
   suspended                    = lookup(each.value, "suspended", null) == null ? false : each.value.suspended
