@@ -5,6 +5,16 @@ locals {
   } : {}
 }
 
+resource "time_sleep" "wait_for_records_creation" {
+  count = module.this.enabled ? 1 : 0
+
+  create_duration = "60s"
+
+  depends_on = [
+    cloudflare_record.default
+  ]
+}
+
 resource "cloudflare_page_rule" "default" {
   for_each = local.page_rules
 
@@ -14,17 +24,16 @@ resource "cloudflare_page_rule" "default" {
   status   = lookup(each.value, "status", null)
 
   actions {
-    always_online            = lookup(each.value.actions, "always_online", null)
-    always_use_https         = lookup(each.value.actions, "always_use_https", null)
-    automatic_https_rewrites = lookup(each.value.actions, "automatic_https_rewrites", null)
-    browser_cache_ttl        = lookup(each.value.actions, "browser_cache_ttl", null)
-    browser_check            = lookup(each.value.actions, "browser_check", null)
-    bypass_cache_on_cookie   = lookup(each.value.actions, "bypass_cache_on_cookie", null)
-    cache_by_device_type     = lookup(each.value.actions, "cache_by_device_type", null)
-    cache_deception_armor    = lookup(each.value.actions, "cache_deception_armor", null)
-    cache_level              = lookup(each.value.actions, "cache_level", null)
-    cache_on_cookie          = lookup(each.value.actions, "cache_on_cookie", null)
-    ## OBJECT cache_key_fields
+    always_online               = lookup(each.value.actions, "always_online", null)
+    always_use_https            = lookup(each.value.actions, "always_use_https", null)
+    automatic_https_rewrites    = lookup(each.value.actions, "automatic_https_rewrites", null)
+    browser_cache_ttl           = lookup(each.value.actions, "browser_cache_ttl", null)
+    browser_check               = lookup(each.value.actions, "browser_check", null)
+    bypass_cache_on_cookie      = lookup(each.value.actions, "bypass_cache_on_cookie", null)
+    cache_by_device_type        = lookup(each.value.actions, "cache_by_device_type", null)
+    cache_deception_armor       = lookup(each.value.actions, "cache_deception_armor", null)
+    cache_level                 = lookup(each.value.actions, "cache_level", null)
+    cache_on_cookie             = lookup(each.value.actions, "cache_on_cookie", null)
     disable_apps                = lookup(each.value.actions, "cache_on_cookie", false)
     disable_performance         = lookup(each.value.actions, "disable_performance", false)
     disable_railgun             = lookup(each.value.actions, "disable_railgun", false)
@@ -112,6 +121,7 @@ resource "cloudflare_page_rule" "default" {
   }
 
   depends_on = [
-    cloudflare_record.default
+    cloudflare_record.default,
+    time_sleep.wait_for_records_creation
   ]
 }

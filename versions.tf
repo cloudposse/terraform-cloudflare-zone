@@ -6,5 +6,9 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = ">= 2.19"
     }
+    hashicorp = {
+      source  = "hashicorp/time"
+      version = ">= 0.7"
+    }
   }
 }
