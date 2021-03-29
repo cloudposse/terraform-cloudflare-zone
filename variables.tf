@@ -77,7 +77,7 @@ variable "healthchecks" {
   default     = null
   description = <<-DOC
   A list of maps of Health Checks rules. 
-  The values of map is fully complated with `cloudflare_healthcheck` resource.
+  The values of map is fully compliant with `cloudflare_healthcheck` resource.
   To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/healthcheck
   DOC
 }
@@ -104,5 +104,15 @@ variable "firewall_rules" {
     products:
       List of products to bypass for a request when the bypass action is used. 
       Possible values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`.
+  DOC
+}
+
+variable "page_rules" {
+  type        = list(any)
+  default     = null
+  description = <<-DOC
+  A list of maps of Page Rules. 
+  The values of map is fully compliant with `cloudflare_page_rule` resource.
+  To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/cloudflare_page_rule
   DOC
 }

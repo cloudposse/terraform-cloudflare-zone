@@ -17,3 +17,8 @@ output "zone_firewall_rule_ids" {
   description = "A list of firewall rule IDs."
   value       = module.zone.firewall_rule_ids
 }
+
+output "zone_page_rule_targets_to_ids" {
+  description = "A map of the page rule targets to IDs."
+  value       = module.zone.page_rule_targets_to_ids
+}

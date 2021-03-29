@@ -56,3 +56,12 @@ output "verification_key" {
   description = "Contains the TXT record value to validate domain ownership. This is only populated for zones of type `partial`."
   value       = join("", cloudflare_zone.default.*.verification_key)
 }
+
+output "page_rule_targets_to_ids" {
+  description = "A map of the page rule targets to IDs."
+  value = {
+    for pr in cloudflare_page_rule.default :
+    pr.target => pr.id
+    if length(local.page_rules) > 0
+  }
+}

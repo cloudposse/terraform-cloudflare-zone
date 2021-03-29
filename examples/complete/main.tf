@@ -8,15 +8,15 @@ module "zone" {
   records = [
     {
       name  = format("bastion-%s", join("", var.attributes))
-      value = "192.168.1.11"
+      value = "1.1.1.1"
       type  = "A"
-      ttl   = 3600
+      ttl   = 1
     },
     {
       name  = format("api-%s", join("", var.attributes))
-      value = "192.168.2.22"
+      value = "1.1.1.1"
       type  = "A"
-      ttl   = 3600
+      ttl   = 1
     }
   ]
 
@@ -29,48 +29,57 @@ module "zone" {
     }
   ]
 
-  # looks like domain should be real
-  # Error: hostname resolution failed
-  #   on ../../healthcheck.tf line 12, in resource "cloudflare_healthcheck" "default":
-  #   12: resource "cloudflare_healthcheck" "default" {
+  healthchecks = [
+    {
+      address = format("bastion-%s.%s", join("", var.attributes), var.zone)
+      check_regions = [
+        "WEU",
+        "EEU"
+      ]
+      notification_email_addresses = [
+        "hostmaster@cloudposse.com"
+      ]
+      type                  = "TCP"
+      port                  = "22"
+      timeout               = 10
+      retries               = 2
+      interval              = 60
+      consecutive_fails     = 3
+      consecutive_successes = 2
+      suspended             = true
+    },
+    {
+      address = format("api-%s.%s", join("", var.attributes), var.zone)
+      check_regions = [
+        "WEU",
+        "EEU"
+      ]
+      notification_email_addresses = [
+        "hostmaster@cloudposse.com"
+      ]
+      type                  = "HTTPS"
+      port                  = "443"
+      timeout               = 10
+      retries               = 2
+      interval              = 60
+      consecutive_fails     = 3
+      consecutive_successes = 2
+      suspended             = true
+    }
+  ]
 
-  # healthchecks = [
-  #   {
-  #     address = format("bastion-%s.%s", join("", var.attributes), var.zone)
-  #     check_regions = [
-  #       "WEU",
-  #       "EEU"
-  #     ]
-  #     notification_email_addresses = [
-  #       "hostmaster@cloudposse.com"
-  #     ]
-  #     type                  = "TCP"
-  #     port                  = "22"
-  #     timeout               = 10
-  #     retries               = 2
-  #     interval              = 60
-  #     consecutive_fails     = 3
-  #     consecutive_successes = 2
-  #     suspended             = true
-  #   },
-  #   {
-  #     address = format("api-%s.%s", join("", var.attributes), var.zone)
-  #     check_regions = [
-  #       "WEU",
-  #       "EEU"
-  #     ]
-  #     notification_email_addresses = [
-  #       "hostmaster@cloudposse.com"
-  #     ]
-  #     type                  = "HTTPS"
-  #     port                  = "443"
-  #     timeout               = 10
-  #     retries               = 2
-  #     interval              = 60
-  #     consecutive_fails     = 3
-  #     consecutive_successes = 2
-  #     suspended             = true
-  #   }
-  # ]
+  page_rules = [
+    {
+      target = format("api-%s.%s/v1/*", join("", var.attributes), var.zone)
+      actions = {
+
+        forwarding_url = {
+          url         = format("https://www.api-%s.%s/$1", join("", var.attributes), var.zone)
+          status_code = "301"
+        }
+      }
+    }
+  ]
+
   context = module.this.context
 }

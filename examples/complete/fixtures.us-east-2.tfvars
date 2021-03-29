@@ -4,6 +4,6 @@ environment = "ue2"
 
 stage = "test"
 
-name = "example"
+name = "cf-zone"
 
-zone = "cloudposse.co"
+zone = "test-automation.app"

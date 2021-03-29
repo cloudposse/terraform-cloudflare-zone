@@ -41,10 +41,12 @@ func TestExamplesComplete(t *testing.T) {
 	zoneFilterIDs := terraform.OutputList(t, terraformOptions, "zone_filter_ids")
 	zoneFirewallRuleIDs := terraform.OutputList(t, terraformOptions, "zone_firewall_rule_ids")
 	zoneRecordHostnamesToIDs := terraform.OutputMap(t, terraformOptions, "zone_record_hostnames_to_ids")
+	zonePageRuleTargetsToIDs := terraform.OutputMap(t, terraformOptions, "zone_page_rule_targets_to_ids")
 
-	assert.Equal(t, "d5e0640731c9299c63d4f8a970fa94a0", zoneID)
-	assert.Contains(t, zoneRecordHostnamesToIDs, "api-"+randID+".cloudposse.co")
-	assert.Contains(t, zoneRecordHostnamesToIDs, "bastion-"+randID+".cloudposse.co")
+	assert.Equal(t, "da5747c2b4f465c8628365724219235e", zoneID)
+	assert.Contains(t, zoneRecordHostnamesToIDs, "api-"+randID+".test-automation.app")
+	assert.Contains(t, zoneRecordHostnamesToIDs, "bastion-"+randID+".test-automation.app")
 	assert.NotEmpty(t, zoneFilterIDs)
 	assert.NotEmpty(t, zoneFirewallRuleIDs)
+	assert.NotEmpty(t, zonePageRuleTargetsToIDs)
 }
