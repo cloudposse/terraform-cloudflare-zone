@@ -9,6 +9,16 @@ locals {
   } : {}
 }
 
+resource "time_sleep" "wait_for_records_creation" {
+  count = module.this.enabled ? 1 : 0
+
+  create_duration = "60s"
+
+  depends_on = [
+    cloudflare_record.default
+  ]
+}
+
 resource "cloudflare_healthcheck" "default" {
   for_each = local.healthchecks
 
@@ -41,4 +51,8 @@ resource "cloudflare_healthcheck" "default" {
       values = header.value.values
     }
   }
+  depends_on = [
+    cloudflare_record.default,
+    time_sleep.wait_for_records_creation
+  ]
 }

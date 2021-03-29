@@ -5,16 +5,6 @@ locals {
   } : {}
 }
 
-resource "time_sleep" "wait_for_records_creation" {
-  count = module.this.enabled ? 1 : 0
-
-  create_duration = "60s"
-
-  depends_on = [
-    cloudflare_record.default
-  ]
-}
-
 resource "cloudflare_page_rule" "default" {
   for_each = local.page_rules
 
@@ -119,9 +109,4 @@ resource "cloudflare_page_rule" "default" {
       }
     }
   }
-
-  depends_on = [
-    cloudflare_record.default,
-    time_sleep.wait_for_records_creation
-  ]
 }
