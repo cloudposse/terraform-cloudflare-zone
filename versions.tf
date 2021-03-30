@@ -2,14 +2,13 @@ terraform {
   required_version = ">= 0.13"
 
   required_providers {
-    # Update these to reflect the actual requirements of your module
-    local = {
-      source  = "hashicorp/local"
-      version = ">= 1.2"
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = ">= 2.19"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 2.2"
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.7"
     }
   }
 }
