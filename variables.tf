@@ -46,12 +46,22 @@ variable "plan" {
   type        = string
   description = "The name of the commercial plan to apply to the zone. Possible values: `free`, `pro`, `business`, `enterprise`"
   default     = "free"
+
+  validation {
+    condition     = var.plan == null ? true : contains(["free", "pro", "business", "enterprise"], var.plan)
+    error_message = "Allowed values: `free`, `pro`, `business`, `enterprise`."
+  }
 }
 
 variable "type" {
   type        = string
   description = "A full zone implies that DNS is hosted with Cloudflare. A `partial` zone is typically a partner-hosted zone or a CNAME setup. Possible values: `full`, `partial`."
   default     = "full"
+
+  validation {
+    condition     = var.type == null ? true : contains(["full", "partial"], var.type)
+    error_message = "Allowed values: `full`, `partial`."
+  }
 }
 
 variable "argo_enabled" {

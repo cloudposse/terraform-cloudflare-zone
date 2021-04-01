@@ -114,7 +114,7 @@ module "zone" {
   source = "cloudposse/zone/cloudflare"
   # Cloud Posse recommends pinning every module to a specific version
   # version = "x.x.x"
-  zone = "cloudposse.co"
+  zone    = "cloudposse.co"
   records = [
     {
       name  = "bastion"
@@ -257,7 +257,7 @@ Are you using this project or any of our other projects? Consider [leaving a tes
 Check out these related projects.
 
 - [terraform-null-label](https://github.com/cloudposse/terraform-null-label) - Terraform Module to define a consistent naming convention by (namespace, stage, name, [attributes])
-- [terraform-cloudflare-waf-rulesets](https://github.com/cloudposse/terraform-cloudflare-waf-rulesets) - %!s(<nil>)
+- [terraform-cloudflare-waf-rulesets](https://github.com/cloudposse/terraform-cloudflare-waf-rulesets) - Terraform module to provision a CloudFlare zone with DNS records, Argo, Firewall filters and rules
 
 
 
