@@ -37,7 +37,7 @@ related:
     stage, name, [attributes])
   url: https://github.com/cloudposse/terraform-null-label
 - name: terraform-cloudflare-waf-rulesets
-  description:
+  description: Terraform module to manage CloudFlare WAF rulesetes
   url: https://github.com/cloudposse/terraform-cloudflare-waf-rulesets
 references:
 - name: terraform-provider-cloudflare
@@ -72,7 +72,7 @@ usage: |-
     source = "cloudposse/zone/cloudflare"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
-    zone = "cloudposse.co"
+    zone    = "cloudposse.co"
     records = [
       {
         name  = "bastion"

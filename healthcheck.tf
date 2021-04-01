@@ -2,7 +2,7 @@ locals {
   healthchecks = module.this.enabled && var.healthchecks != null ? {
     for healthcheck in flatten(var.healthchecks) :
     format("%s-%s-%s",
-      lookup(healthcheck, "name", null) == null ? module.this.id : healthcheck.name,
+      lookup(healthcheck, "name", module.this.id),
       healthcheck.type,
       healthcheck.address
     ) => healthcheck

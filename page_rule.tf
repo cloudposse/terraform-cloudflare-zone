@@ -101,6 +101,7 @@ resource "cloudflare_page_rule" "default" {
           include = lookup(cache_key_fields.value.query_string, "include", null)
           ignore  = lookup(cache_key_fields.value.query_string, "ignore", null)
         }
+
         user {
           device_type = lookup(cache_key_fields.value.user, "device_type", null)
           geo         = lookup(cache_key_fields.value.user, "geo", null)
