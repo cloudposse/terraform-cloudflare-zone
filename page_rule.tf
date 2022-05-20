@@ -30,7 +30,7 @@ resource "cloudflare_page_rule" "default" {
     disable_security            = lookup(each.value.actions, "disable_security", false)
     edge_cache_ttl              = lookup(each.value.actions, "edge_cache_ttl", null)
     email_obfuscation           = lookup(each.value.actions, "email_obfuscation", null)
-    explicit_cache_control      = lookup(each.value.actions, "explicit_cache_control", off)
+    explicit_cache_control      = lookup(each.value.actions, "explicit_cache_control", null)
     host_header_override        = lookup(each.value.actions, "host_header_override", null)
     ip_geolocation              = lookup(each.value.actions, "ip_geolocation", null)
     mirage                      = lookup(each.value.actions, "mirage", null)
