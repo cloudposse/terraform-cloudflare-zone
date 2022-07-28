@@ -36,9 +36,6 @@ module "zone" {
         "WEU",
         "EEU"
       ]
-      notification_email_addresses = [
-        "hostmaster@cloudposse.com"
-      ]
       type                  = "TCP"
       port                  = "22"
       timeout               = 10
@@ -53,9 +50,6 @@ module "zone" {
       check_regions = [
         "WEU",
         "EEU"
-      ]
-      notification_email_addresses = [
-        "hostmaster@cloudposse.com"
       ]
       type                  = "HTTPS"
       port                  = "443"
