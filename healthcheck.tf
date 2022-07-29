@@ -28,8 +28,6 @@ resource "cloudflare_healthcheck" "default" {
   address                      = each.value.address
   suspended                    = lookup(each.value, "suspended", null) == null ? false : each.value.suspended
   check_regions                = lookup(each.value, "check_regions", null)
-  notification_suspended       = lookup(each.value, "notification_suspended", null) == null ? false : each.value.notification_suspended
-  notification_email_addresses = lookup(each.value, "notification_email_addresses", null)
   type                         = each.value.type
   port                         = lookup(each.value, "suspended", null) == null ? 80 : each.value.port
   timeout                      = lookup(each.value, "timeout", null) == null ? 5 : each.value.timeout
