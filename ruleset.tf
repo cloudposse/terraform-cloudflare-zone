@@ -3,7 +3,7 @@ locals {
     for rs in flatten(var.rulesets) :
     format("%s-%s",
       rs.kind,
-      md5(rule.name),
+      md5(rs.name),
     ) => rs
   } : {}
 }
