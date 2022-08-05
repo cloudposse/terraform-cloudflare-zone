@@ -46,7 +46,7 @@ resource "cloudflare_ruleset" "default" {
             content {
               cache_by_device_type  = cache_key.value.cache_by_device_type
               cache_deception_armor = cache_key.value.cache_deception_armor
-              custom_key            = cache_key.value.custom_key
+
               dynamic "custom_key" {
                 for_each = cache_key.value.custom_key
                 content {
@@ -266,7 +266,6 @@ resource "cloudflare_ruleset" "default" {
           host_header                = action_parameters.value.host_header
           id                         = action_parameters.value.id
           increment                  = action_parameters.value.increment
-          origin                     = action_parameters.value.origin
           origin_error_page_passthru = action_parameters.value.origin_error_page_passthru
           phases                     = action_parameters.value.phases
           products                   = action_parameters.value.products
@@ -276,7 +275,6 @@ resource "cloudflare_ruleset" "default" {
           rules                      = action_parameters.value.rules
           ruleset                    = action_parameters.value.ruleset
           rulesets                   = action_parameters.value.rulesets
-          uri                        = action_parameters.value.uri
           version                    = action_parameters.value.version
         }
       }
