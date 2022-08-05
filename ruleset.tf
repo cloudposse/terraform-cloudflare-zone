@@ -1,20 +1,9 @@
-locals {
-  rulesets = module.this.enabled && var.rulesets != null ? {
-    for rs in flatten(var.rulesets) :
-    format("%s-%s",
-      rs.kind,
-      md5(rs.name),
-    ) => rs
-  } : {}
-}
-
 resource "cloudflare_ruleset" "default" {
-  for_each = local.rulesets
+  for_each = toset(var.rulesets)
 
   kind  = each.value.kind
   name  = each.value.name
   phase = each.value.phase
-
 
   account_id                 = lookup(each.value, "account_id", null)
   zone_id                    = lookup(each.value, "zone_id", null)
