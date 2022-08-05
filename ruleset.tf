@@ -8,26 +8,24 @@ locals {
 resource "cloudflare_ruleset" "default" {
   for_each = local.rulesets
 
-  kind     = each.value.kind
-  name     = each.value.name
-  phase    = each.value.phase
+  kind  = each.value.kind
+  name  = each.value.name
+  phase = each.value.phase
 
 
-  account_id = lookup(each.value, "account_id", null)
-  zone_id = lookup(each.value, "zone_id", null)
-  description = lookup(each.value, "description", null)
+  account_id                 = lookup(each.value, "account_id", null)
+  zone_id                    = lookup(each.value, "zone_id", null)
+  description                = lookup(each.value, "description", null)
   shareable_entitlement_name = lookup(each.value, "shareable_entitlement_name", null)
 
   dynamic "rules" {
     for_each = each.value.rules
 
     content {
-
-      expression = rules.value.expression
-
-      action = rules.value.action
+      expression  = rules.value.expression
+      action      = rules.value.action
       description = rules.value.description
-      enabled = rules.value.enabled
+      enabled     = rules.value.enabled
 
       dynamic "action_parameters" {
         for_each = rules.value.action_parameters
@@ -36,17 +34,16 @@ resource "cloudflare_ruleset" "default" {
           dynamic "browser_ttl" {
             for_each = action_parameters.value.browser_ttl
 
-            content = {
+            content {
               mode    = browser_ttl.value.mode
               default = browser_ttl.value.default
             }
           }
 
-
           dynamic "cache_key" {
             for_each = action_parameters.value.cache_key
 
-            content = {
+            content {
               cache_by_service_type      = cache_key.value.cache_by_service_type
               cache_deception_armor      = cache_key.value.cache_deception_armor
               custom_key                 = cache_key.value.custom_key
@@ -57,14 +54,14 @@ resource "cloudflare_ruleset" "default" {
           dynamic "edge_ttl" {
             for_each = action_parameters.value.edge_ttl
 
-            content = {
+            content {
               default = edge_ttl.value.default
               mode    = edge_ttl.value.mode
 
               dynamic "status_code_ttl" {
                 for_each = edge_ttl.value.status_code_ttl
 
-                content = {
+                content {
                   status_code       = status_code_ttl.value.status_code
                   status_code_range = status_code_ttl.value.status_code_range
                 }
@@ -75,17 +72,16 @@ resource "cloudflare_ruleset" "default" {
           dynamic "from_list" {
             for_each = action_parameters.value.from_list
 
-            content = {
+            content {
               key  = from_list.value.key
               name = from_list.value.name
             }
           }
 
-
           dynamic "from_value" {
             for_each = action_parameters.value.from_value
 
-            content = {
+            content {
               preserve_query_string = from_value.value.preserve_query_string
               status_code           = from_value.value.status_code
               target_url            = from_value.value.target_url
@@ -95,7 +91,7 @@ resource "cloudflare_ruleset" "default" {
           dynamic "headers" {
             for_each = action_parameters.value.headers
 
-            content = {
+            content {
               expression = headers.value.expression
               name       = headers.value.name
               operation  = headers.value.operation
@@ -106,7 +102,7 @@ resource "cloudflare_ruleset" "default" {
           dynamic "matched_data" {
             for_each = action_parameters.value.matched_data
 
-            content = {
+            content {
               public_key = matched_data.value.public_key
             }
           }
@@ -114,7 +110,7 @@ resource "cloudflare_ruleset" "default" {
           dynamic "origin" {
             for_each = action_parameters.value.origin
 
-            content = {
+            content {
               host = origin.value.host
               port = origin.value.port
             }
@@ -123,7 +119,7 @@ resource "cloudflare_ruleset" "default" {
           dynamic "overrides" {
             for_each = action_parameters.value.overrides
 
-            content = {
+            content {
               action     = overrides.value.action
               categories = overrides.value.categories
               enabled    = overrides.value.enabled
@@ -135,7 +131,7 @@ resource "cloudflare_ruleset" "default" {
           dynamic "response" {
             for_each = action_parameters.value.response
 
-            content = {
+            content {
               content      = response.value.content
               content_type = response.value.content_type
               status_code  = response.value.status_code
@@ -145,7 +141,7 @@ resource "cloudflare_ruleset" "default" {
           dynamic "serve_stale" {
             for_each = action_parameters.value.serve_stale
 
-            content = {
+            content {
               disable_stale_while_updating = serve_stale.value.disable_stale_while_updating
             }
           }
@@ -153,13 +149,13 @@ resource "cloudflare_ruleset" "default" {
           dynamic "uri" {
             for_each = action_parameters.value.uri
 
-            content = {
+            content {
               origin = uri.value.origin
 
               dynamic "path" {
                 for_each = uri.value.path
 
-                content = {
+                content {
                   expression = uri.value.expression
                   value      = uri.value.value
                 }
@@ -168,7 +164,7 @@ resource "cloudflare_ruleset" "default" {
               dynamic "query" {
                 for_each = uri.value.query
 
-                content = {
+                content {
                   expression = query.value.expression
                   value      = query.value.value
                 }
@@ -176,23 +172,23 @@ resource "cloudflare_ruleset" "default" {
             }
           }
 
-          cache = action_parameters.value.cache
-          cookie_fields = action_parameters.value.cookie_fields
-          host_header = action_parameters.value.host_header
-          id = action_parameters.value.id
-          increment = action_parameters.value.increment
-          origin = action_parameters.value.origin
+          cache                      = action_parameters.value.cache
+          cookie_fields              = action_parameters.value.cookie_fields
+          host_header                = action_parameters.value.host_header
+          id                         = action_parameters.value.id
+          increment                  = action_parameters.value.increment
+          origin                     = action_parameters.value.origin
           origin_error_page_passthru = action_parameters.value.origin_error_page_passthru
-          phases = action_parameters.value.phases
-          products = action_parameters.value.products
-          request_fields = action_parameters.value.request_fields
-          respect_strong_etags = action_parameters.value.respect_strong_etags
-          response_fields = action_parameters.value.response_fields
-          rules = action_parameters.value.rules
-          ruleset = action_parameters.value.ruleset
-          rulesets = action_parameters.value.rulesets
-          uri = action_parameters.value.uri
-          version = action_parameters.value.version
+          phases                     = action_parameters.value.phases
+          products                   = action_parameters.value.products
+          request_fields             = action_parameters.value.request_fields
+          respect_strong_etags       = action_parameters.value.respect_strong_etags
+          response_fields            = action_parameters.value.response_fields
+          rules                      = action_parameters.value.rules
+          ruleset                    = action_parameters.value.ruleset
+          rulesets                   = action_parameters.value.rulesets
+          uri                        = action_parameters.value.uri
+          version                    = action_parameters.value.version
         }
       }
 
@@ -219,12 +215,12 @@ resource "cloudflare_ruleset" "default" {
         for_each = rules.value.ratelimit
 
         content {
-          characteristics = ratelimit.value.characteristics
+          characteristics     = ratelimit.value.characteristics
           counting_expression = ratelimit.value.counting_expression
-          mitigation_timeout = ratelimit.value.mitigation_timeout
-          period = ratelimit.value.period
+          mitigation_timeout  = ratelimit.value.mitigation_timeout
+          period              = ratelimit.value.period
           requests_per_period = ratelimit.value.requests_per_period
-          requests_to_origin = ratelimit.value.requests_to_origin
+          requests_to_origin  = ratelimit.value.requests_to_origin
         }
       }
     }
