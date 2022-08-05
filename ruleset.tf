@@ -13,6 +13,7 @@ resource "cloudflare_ruleset" "this" {
   zone_id                    = lookup(each.value, "zone_id", null)
   description                = lookup(each.value, "description", null)
   shareable_entitlement_name = lookup(each.value, "shareable_entitlement_name", null)
+  rules                      = lookup(each.value, "rules", null)
 
   # dynamic "rules" {
   #   for_each = each.value.rules
