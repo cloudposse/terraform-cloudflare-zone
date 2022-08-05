@@ -1,7 +1,10 @@
 locals {
   rulesets = module.this.enabled && var.rulesets != null ? {
     for rs in flatten(var.rulesets) :
-    rs.target => rs
+    format("%s-%s",
+      rs.kind,
+      md5(rule.name),
+    ) => rs
   } : {}
 }
 
