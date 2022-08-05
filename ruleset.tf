@@ -1,5 +1,5 @@
-resource "cloudflare_ruleset" "default" {
-  for_each = toset(var.rulesets)
+resource "cloudflare_ruleset" "this" {
+  for_each = var.rulesets
 
   kind  = each.value.kind
   name  = each.value.name
