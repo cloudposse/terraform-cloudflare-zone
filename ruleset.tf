@@ -18,10 +18,10 @@ resource "cloudflare_ruleset" "this" {
     for_each = each.value.rules
 
     content {
-      expression  = rules.value.expression
-      action      = rules.value.action
-      description = rules.value.description
-      enabled     = rules.value.enabled
+      expression = rules.value.expression
+      action     = rules.value.action
+      # description = rules.value.description
+      enabled = rules.value.enabled
 
       # dynamic "action_parameters" {
       #   for_each = rules.value.action_parameters
