@@ -44,9 +44,59 @@ resource "cloudflare_ruleset" "default" {
             for_each = action_parameters.value.cache_key
 
             content {
-              cache_by_service_type      = cache_key.value.cache_by_service_type
-              cache_deception_armor      = cache_key.value.cache_deception_armor
-              custom_key                 = cache_key.value.custom_key
+              cache_by_device_type  = cache_key.value.cache_by_device_type
+              cache_deception_armor = cache_key.value.cache_deception_armor
+              custom_key            = cache_key.value.custom_key
+              dynamic "custom_key" {
+                for_each = cache_key.value.custom_key
+                content {
+                  dynamic "cookie" {
+                    for_each = custom_key.value.cookie
+
+                    content {
+                      check_presence = cookie.value.check_presence
+                      include        = cookie.value.include
+                    }
+                  }
+
+                  dynamic "header" {
+                    for_each = custom_key.value.header
+
+                    content {
+                      check_presence = header.value.check_presence
+                      exclude_origin = header.value.exclude_origin
+                      include        = header.value.include
+                    }
+                  }
+
+                  dynamic "host" {
+                    for_each = custom_key.value.host
+
+                    content {
+                      resolved = host.value.resolved
+                    }
+                  }
+
+                  dynamic "query_string" {
+                    for_each = custom_key.value.query_string
+
+                    content {
+                      exclude = query_string.value.exclude
+                      include = query_string.value.include
+                    }
+                  }
+
+                  dynamic "user" {
+                    for_each = custom_key.value.user
+
+                    content {
+                      device_type = user.value.device_type
+                      geo         = user.value.geo
+                      lang        = user.value.lang
+                    }
+                  }
+                }
+              }
               ignore_query_strings_order = cache_key.value.ignore_query_strings_order
             }
           }
@@ -62,8 +112,17 @@ resource "cloudflare_ruleset" "default" {
                 for_each = edge_ttl.value.status_code_ttl
 
                 content {
-                  status_code       = status_code_ttl.value.status_code
-                  status_code_range = status_code_ttl.value.status_code_range
+                  value       = status_code_ttl.value.value
+                  status_code = status_code_ttl.value.status_code
+
+                  dynamic "status_code_range" {
+                    for_each = status_code_ttl.value.status_code_range
+
+                    content {
+                      from = status_code_range.value.from
+                      to   = status_code_range.value.to
+                    }
+                  }
                 }
               }
             }
@@ -84,7 +143,15 @@ resource "cloudflare_ruleset" "default" {
             content {
               preserve_query_string = from_value.value.preserve_query_string
               status_code           = from_value.value.status_code
-              target_url            = from_value.value.target_url
+
+              dynamic "target_url" {
+                for_each = from_value.value.target_url
+
+                content {
+                  expression = target_url.value.expression
+                  value      = target_url.value.value
+                }
+              }
             }
           }
 
@@ -120,11 +187,33 @@ resource "cloudflare_ruleset" "default" {
             for_each = action_parameters.value.overrides
 
             content {
-              action     = overrides.value.action
-              categories = overrides.value.categories
-              enabled    = overrides.value.enabled
-              rules      = overrides.value.rules
-              status     = overrides.value.status
+              action  = overrides.value.action
+              enabled = overrides.value.enabled
+              status  = overrides.value.status
+
+              dynamic "categories" {
+                for_each = overrides.value.categories
+
+                content {
+                  action   = categories.value.action
+                  category = categories.value.category
+                  enabled  = categories.value.enabled
+                  status   = categories.value.status
+                }
+              }
+
+              dynamic "rules" {
+                for_each = overrides.value.rules
+
+                content {
+                  action            = rules.value.action
+                  enabled           = rules.value.enabled
+                  id                = rules.value.id
+                  score_threshold   = rules.value.score_threshold
+                  sensitivity_level = rules.value.sensitivity_level
+                  status            = rules.value.status
+                }
+              }
             }
           }
 
