@@ -1,5 +1,9 @@
+locals {
+  rulesets = { for rs in var.rulesets : rs.name => rs }
+}
+
 resource "cloudflare_ruleset" "this" {
-  for_each = var.rulesets
+  for_each = local.rulesets
 
   kind  = each.value.kind
   name  = each.value.name
