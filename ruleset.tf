@@ -24,7 +24,7 @@ resource "cloudflare_ruleset" "this" {
       enabled = lookup(rules.value, "enabled", null)
 
       dynamic "action_parameters" {
-        for_each = lookup(rules.value, "action_parameters", {})
+        for_each = lookup(rules.value, "action_parameters", [])
 
         content {
           dynamic "browser_ttl" {
