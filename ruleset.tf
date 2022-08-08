@@ -24,11 +24,11 @@ resource "cloudflare_ruleset" "this" {
       enabled = lookup(rules.value, "enabled", null)
 
       dynamic "action_parameters" {
-        for_each = lookup(rules.value, "action_parameters", [])
+        for_each = lookup(rules.value, "action_parameters", null) != null ? [rules.value.action_parameters] : []
 
         content {
           dynamic "browser_ttl" {
-            for_each = lookup(action_parameters.value, "browser_ttl", {})
+            for_each = lookup(action_parameters.value, "browser_ttl", null) != null ? [action_parameters.value.browser_ttl] : []
 
             content {
               mode    = browser_ttl.value.mode
@@ -37,17 +37,17 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "cache_key" {
-            for_each = lookup(action_parameters.value, "cache_key", {})
+            for_each = lookup(action_parameters.value, "cache_key", null) != null ? [action_parameters.value.cache_key] : []
 
             content {
               cache_by_device_type  = lookup(cache_key.value, "cache_by_device_type", null)
               cache_deception_armor = lookup(cache_key.value, "cache_deception_armor", null)
 
               dynamic "custom_key" {
-                for_each = lookup(cache_key.value, "custom_key", {})
+                for_each = lookup(cache_key.value, "custom_key", null) != null ? [cache_key.value.custom_key] : []
                 content {
                   dynamic "cookie" {
-                    for_each = lookup(custom_key.value, "cookie", {})
+                    for_each = lookup(custom_key.value, "cookie", null) != null ? [custom_key.value.cookie] : []
 
                     content {
                       check_presence = lookup(cookie.value, "check_presence", null)
@@ -56,7 +56,7 @@ resource "cloudflare_ruleset" "this" {
                   }
 
                   dynamic "header" {
-                    for_each = lookup(custom_key.value, "header", {})
+                    for_each = lookup(custom_key.value, "header", null) != null ? [custom_key.value.header] : []
 
                     content {
                       check_presence = lookup(header.value, "check_presence", null)
@@ -66,7 +66,7 @@ resource "cloudflare_ruleset" "this" {
                   }
 
                   dynamic "host" {
-                    for_each = lookup(custom_key.value, "host", {})
+                    for_each = lookup(custom_key.value, "host", null) != null ? [custom_key.value.host] : []
 
                     content {
                       resolved = lookup(host.value, "resolved", null)
@@ -74,7 +74,7 @@ resource "cloudflare_ruleset" "this" {
                   }
 
                   dynamic "query_string" {
-                    for_each = lookup(custom_key.value, "query_string", {})
+                    for_each = lookup(custom_key.value, "query_string", null) != null ? [custom_key.value.query_string] : []
 
                     content {
                       exclude = lookup(query_string.value, "exclude", null)
@@ -83,7 +83,7 @@ resource "cloudflare_ruleset" "this" {
                   }
 
                   dynamic "user" {
-                    for_each = lookup(custom_key.value, "user", {})
+                    for_each = lookup(custom_key.value, "user", null) != null ? [custom_key.value.user] : []
 
                     content {
                       device_type = lookup(user.value, "device_type", null)
@@ -98,21 +98,21 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "edge_ttl" {
-            for_each = lookup(action_parameters.value, "edge_ttl", {})
+            for_each = lookup(action_parameters.value, "edge_ttl", null) != null ? [action_parameters.value.edge_ttl] : []
 
             content {
               default = edge_ttl.value.default
               mode    = edge_ttl.value.mode
 
               dynamic "status_code_ttl" {
-                for_each = lookup(edge_ttl.value, "status_code_ttl", {})
+                for_each = lookup(edge_ttl.value, "status_code_ttl", [])
 
                 content {
                   value       = status_code_ttl.value.value
                   status_code = lookup(status_code_ttl.value, "status_code", null)
 
                   dynamic "status_code_range" {
-                    for_each = lookup(status_code_ttl.value, "status_code_range", {})
+                    for_each = lookup(status_code_ttl.value, "status_code_range", [])
 
                     content {
                       from = lookup(status_code_range.value, "from", null)
@@ -125,7 +125,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "from_list" {
-            for_each = lookup(action_parameters.value, "from_list", {})
+            for_each = lookup(action_parameters.value, "from_list", null) != null ? [action_parameters.value.from_list] : []
 
             content {
               key  = lookup(from_list.value, "key", null)
@@ -134,14 +134,14 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "from_value" {
-            for_each = lookup(action_parameters.value, "from_value", {})
+            for_each = lookup(action_parameters.value, "from_value", null) != null ? [action_parameters.value.from_value] : []
 
             content {
               preserve_query_string = lookup(from_value.value, "preserve_query_string", null)
               status_code           = lookup(from_value.value, "status_code", null)
 
               dynamic "target_url" {
-                for_each = lookup(from_value.value, "target_url", {})
+                for_each = lookup(from_value.value, "target_url", null) != null ? [from_value.value.target_url] : []
 
                 content {
                   expression = lookup(target_url.value, "expression", null)
@@ -152,7 +152,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "headers" {
-            for_each = lookup(action_parameters.value, "headers", {})
+            for_each = lookup(action_parameters.value, "headers", [])
 
             content {
               expression = lookup(headers.value, "expression", null)
@@ -163,7 +163,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "matched_data" {
-            for_each = lookup(action_parameters.value, "matched_data", {})
+            for_each = lookup(action_parameters.value, "matched_data", null) != null ? [action_parameters.value.matched_data] : []
 
             content {
               public_key = lookup(matched_data.value, "public_key", null)
@@ -171,7 +171,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "origin" {
-            for_each = lookup(action_parameters.value, "origin", {})
+            for_each = lookup(action_parameters.value, "origin", null) != null : [action_parameters.value.origin] : []
 
             content {
               host = lookup(origin.value, "host", null)
@@ -180,7 +180,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "overrides" {
-            for_each = lookup(action_parameters.value, "overrides", {})
+            for_each = lookup(action_parameters.value, "overrides", null) != null ? [action_parameters.value.overrides] : []
 
             content {
               action  = lookup(overrides.value, "action", null)
@@ -188,7 +188,7 @@ resource "cloudflare_ruleset" "this" {
               status  = lookup(overrides.value, "status", null)
 
               dynamic "categories" {
-                for_each = lookup(overrides.value, "categories", {})
+                for_each = lookup(overrides.value, "categories", [])
 
                 content {
                   action   = lookup(categories.value, "action", null)
@@ -199,7 +199,7 @@ resource "cloudflare_ruleset" "this" {
               }
 
               dynamic "rules" {
-                for_each = lookup(overrides.value, "rules", {})
+                for_each = lookup(overrides.value, "rules", [])
 
                 content {
                   action            = lookup(rules.value, "action", null)
@@ -224,7 +224,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "serve_stale" {
-            for_each = lookup(action_parameters.value, "serve_stale", {})
+            for_each = lookup(action_parameters.value, "serve_stale", null) != null ? : [action_parameters.value.serve_stale] : []
 
             content {
               disable_stale_while_updating = lookup(serve_stale.value, "disable_stale_while_updating", null)
@@ -232,22 +232,22 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "uri" {
-            for_each = lookup(action_parameters.value, "uri", {})
+            for_each = lookup(action_parameters.value, "uri", null) != null ? [action_parameters.value.uri] : []
 
             content {
               origin = lookup(uri.value, "origin", null)
 
               dynamic "path" {
-                for_each = lookup(uri.value, "path", {})
+                for_each = lookup(uri.value, "path", null) != null ? [uri.value.path] : []
 
                 content {
                   expression = lookup(uri.value, "expression", null)
-                  value      = lookup(uri.value, "value", null)
+                  value      = lookup(path.value, "value", null)
                 }
               }
 
               dynamic "query" {
-                for_each = lookup(uri.value, "query", {})
+                for_each = lookup(uri.value, "query", null) != null ? [uri.value.query] : []
 
                 content {
                   expression = lookup(query.value, "expression", null)
@@ -277,7 +277,7 @@ resource "cloudflare_ruleset" "this" {
 
 
       dynamic "exposed_credential_check" {
-        for_each = lookup(rules.value, "exposed_credential_check", {})
+        for_each = lookup(rules.value, "exposed_credential_check", null) != null ? [rules.value.exposed_credential_check] : []
 
         content {
           password_expression = lookup(exposed_credential_check.value, "password_expression", null)
@@ -286,7 +286,7 @@ resource "cloudflare_ruleset" "this" {
       }
 
       dynamic "logging" {
-        for_each = lookup(rules.value, "logging", {})
+        for_each = lookup(rules.value, "logging", null) != null ? [rules.value.logging] : []
 
         content {
           enabled = lookup(logging.value, "enabled", null)
@@ -295,7 +295,7 @@ resource "cloudflare_ruleset" "this" {
       }
 
       dynamic "ratelimit" {
-        for_each = lookup(rules.value, "ratelimit", {})
+        for_each = lookup(rules.value, "ratelimit", null) ? [rules.value.ratelimit] : []
 
         content {
           characteristics     = lookup(ratelimit.value, "characteristics", null)

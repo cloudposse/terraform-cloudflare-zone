@@ -11,7 +11,7 @@ variable "zone_enabled" {
 
 variable "records" {
   type        = list(any)
-  default     = null
+  default     = []
   description = <<-DOC
     name:
       The name of the record.
@@ -128,6 +128,47 @@ variable "page_rules" {
 }
 
 variable "rulesets" {
-  type    = list(any)
-  default = null
+  type = list(any)
+  default = [
+    {
+      kind    = "zone"
+      name    = "Production short url index.html"
+      phase   = "http_request_transform"
+      zone_id = "7cbeaf8a950fdc00d0a55d7a083157e9" # icl.vc
+      rules = [
+        {
+          action = "rewrite"
+          action_parameters = {
+            uri = {
+              path = {
+                value = "/index.html"
+              }
+            }
+          }
+          enabled    = true
+          expression = "(http.host eq \"app.icl.vc\" and http.request.uri eq \"/\")"
+        }
+      ]
+    },
+    {
+      kind    = "zone"
+      name    = "Staging short url index.html"
+      phase   = "http_request_transform"
+      zone_id = "7cbeaf8a950fdc00d0a55d7a083157e9" # icl.vc
+      rules = [
+        # {
+        #   action = "rewrite"
+        #   action_parameters = [{
+        #     uri = [{
+        #       path = {
+        #         value = "/index.html"
+        #       }
+        #     }]
+        #   }]
+        #   enabled    = true
+        #   expression = "(http.host eq \"staging-app.icl.vc\" and http.request.uri eq \"/\")"
+        # }
+      ]
+    },
+  ]
 }
