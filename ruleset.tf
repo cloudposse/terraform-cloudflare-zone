@@ -20,7 +20,7 @@ resource "cloudflare_ruleset" "this" {
     content {
       expression = rules.value.expression
       action     = lookup(rules.value, "action", null)
-      # description = rules.value.description
+      description = lookup(rules.value, "description", null)
       enabled = lookup(rules.value, "enabled", null)
 
       dynamic "action_parameters" {
