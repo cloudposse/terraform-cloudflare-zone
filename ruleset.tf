@@ -171,7 +171,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "origin" {
-            for_each = lookup(action_parameters.value, "origin", null) != null : [action_parameters.value.origin] : []
+            for_each = lookup(action_parameters.value, "origin", null) != null ? [action_parameters.value.origin] : []
 
             content {
               host = lookup(origin.value, "host", null)
@@ -224,7 +224,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "serve_stale" {
-            for_each = lookup(action_parameters.value, "serve_stale", null) != null ? : [action_parameters.value.serve_stale] : []
+            for_each = lookup(action_parameters.value, "serve_stale", null) != null ? [action_parameters.value.serve_stale] : []
 
             content {
               disable_stale_while_updating = lookup(serve_stale.value, "disable_stale_while_updating", null)
