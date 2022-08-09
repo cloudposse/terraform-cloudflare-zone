@@ -214,7 +214,7 @@ resource "cloudflare_ruleset" "this" {
           }
 
           dynamic "response" {
-            for_each = lookup(action_parameters.value, "response", {})
+            for_each = lookup(action_parameters.value, "response", [])
 
             content {
               content      = lookup(response.value, "content", null)
@@ -295,7 +295,7 @@ resource "cloudflare_ruleset" "this" {
       }
 
       dynamic "ratelimit" {
-        for_each = lookup(rules.value, "ratelimit", null) ? [rules.value.ratelimit] : []
+        for_each = lookup(rules.value, "ratelimit", null) != null ? [rules.value.ratelimit] : []
 
         content {
           characteristics     = lookup(ratelimit.value, "characteristics", null)
