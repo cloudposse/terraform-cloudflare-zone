@@ -14,7 +14,6 @@ resource "cloudflare_page_rule" "default" {
   status   = lookup(each.value, "status", null)
 
   actions {
-    always_online               = lookup(each.value.actions, "always_online", null)
     always_use_https            = lookup(each.value.actions, "always_use_https", null)
     automatic_https_rewrites    = lookup(each.value.actions, "automatic_https_rewrites", null)
     browser_cache_ttl           = lookup(each.value.actions, "browser_cache_ttl", null)
@@ -30,6 +29,7 @@ resource "cloudflare_page_rule" "default" {
     disable_security            = lookup(each.value.actions, "disable_security", false)
     edge_cache_ttl              = lookup(each.value.actions, "edge_cache_ttl", null)
     email_obfuscation           = lookup(each.value.actions, "email_obfuscation", null)
+    explicit_cache_control      = lookup(each.value.actions, "explicit_cache_control", null)
     host_header_override        = lookup(each.value.actions, "host_header_override", null)
     ip_geolocation              = lookup(each.value.actions, "ip_geolocation", null)
     mirage                      = lookup(each.value.actions, "mirage", null)
