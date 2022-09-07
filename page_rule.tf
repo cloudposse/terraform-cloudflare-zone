@@ -14,7 +14,6 @@ resource "cloudflare_page_rule" "default" {
   status   = lookup(each.value, "status", null)
 
   actions {
-    always_online               = lookup(each.value.actions, "always_online", null)
     always_use_https            = lookup(each.value.actions, "always_use_https", null)
     automatic_https_rewrites    = lookup(each.value.actions, "automatic_https_rewrites", null)
     browser_cache_ttl           = lookup(each.value.actions, "browser_cache_ttl", null)
