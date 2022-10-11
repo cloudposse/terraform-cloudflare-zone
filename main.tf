@@ -7,11 +7,8 @@ locals {
   records_enabled = module.this.enabled && length(var.records) > 0
   zone_id         = local.zone_enabled ? join("", cloudflare_zone.default.*.id) : (local.zone_exists ? lookup(data.cloudflare_zones.default[0].zones[0], "id") : null)
   records = local.records_enabled ? {
-    for record in flatten(var.records) :
-    format("%s%s",
-      record.name,
-      record.type,
-    ) => record
+    for index, record in flatten(var.records) :
+    try(record.key, format("%s-%s", record.name, record.type)) => record
   } : {}
 }
 
