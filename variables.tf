@@ -11,7 +11,7 @@ variable "zone_enabled" {
 
 variable "records" {
   type        = list(any)
-  default     = null
+  default     = []
   description = <<-DOC
     name:
       The name of the record.
