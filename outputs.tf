@@ -7,7 +7,7 @@ output "record_hostnames_to_ids" {
   description = "A map of the zone record hostnames to IDs."
   value = {
     for record in cloudflare_record.default :
-    record.hostname => record.id
+    record.hostname => record.id...
     if local.records_enabled
   }
 }
