@@ -3,7 +3,7 @@ locals {
   smart_routing   = local.argo_enabed && var.argo_smart_routing_enabled ? "on" : "off"
   argo_enabed     = module.this.enabled && var.argo_enabled
   zone_enabled    = module.this.enabled && var.zone_enabled
-  zone_exists     = module.this.enabled && ! var.zone_enabled
+  zone_exists     = module.this.enabled && !var.zone_enabled
   records_enabled = module.this.enabled && length(var.records) > 0
   zone_id         = local.zone_enabled ? join("", cloudflare_zone.default.*.id) : (local.zone_exists ? lookup(data.cloudflare_zones.default[0].zones[0], "id") : null)
   records = local.records_enabled ? {

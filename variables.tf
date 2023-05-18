@@ -5,7 +5,7 @@ variable "zone" {
 
 variable "account_id" {
   type        = string
-  description = "The Account ID which will be used."
+  description = "Cloudflare account ID to manage the zone resource in"
 }
 
 variable "zone_enabled" {
