@@ -23,6 +23,7 @@ data "cloudflare_zones" "default" {
 resource "cloudflare_zone" "default" {
   count = local.zone_enabled ? 1 : 0
 
+  account_id = var.account_id
   zone       = var.zone
   paused     = var.paused
   jump_start = var.jump_start

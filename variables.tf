@@ -3,6 +3,11 @@ variable "zone" {
   description = "The DNS zone name which will be added."
 }
 
+variable "account_id" {
+  type        = string
+  description = "The Account ID which will be used."
+}
+
 variable "zone_enabled" {
   type        = bool
   description = "Whether to create DNS zone otherwise use existing."
@@ -23,9 +28,9 @@ variable "records" {
       The TTL of the record.
       Default value: 1.
     priority:
-      The priority of the record. 
+      The priority of the record.
     proxied:
-      Whether the record gets Cloudflare's origin protection. 
+      Whether the record gets Cloudflare's origin protection.
       Default value: false.
   DOC
 }
@@ -86,7 +91,7 @@ variable "healthchecks" {
   type        = list(any)
   default     = null
   description = <<-DOC
-  A list of maps of Health Checks rules. 
+  A list of maps of Health Checks rules.
   The values of map is fully compliant with `cloudflare_healthcheck` resource.
   To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/healthcheck
   DOC
@@ -105,14 +110,14 @@ variable "firewall_rules" {
     ref:
       Short reference tag to quickly select related rules.
     action:
-      The action to apply to a matched request. 
+      The action to apply to a matched request.
       Possible values: `block`, `challenge`, `allow`, `js_challenge`, `bypass`.
     priority:
-      The priority of the rule to allow control of processing order. 
+      The priority of the rule to allow control of processing order.
       A lower number indicates high priority.
       If not provided, any rules with a priority will be sequenced before those without.
     products:
-      List of products to bypass for a request when the bypass action is used. 
+      List of products to bypass for a request when the bypass action is used.
       Possible values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`.
   DOC
 }
@@ -121,7 +126,7 @@ variable "page_rules" {
   type        = list(any)
   default     = null
   description = <<-DOC
-  A list of maps of Page Rules. 
+  A list of maps of Page Rules.
   The values of map is fully compliant with `cloudflare_page_rule` resource.
   To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/cloudflare_page_rule
   DOC
