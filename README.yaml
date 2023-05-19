@@ -72,9 +72,10 @@ usage: |-
     source = "cloudposse/zone/cloudflare"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
+
     account_id = "example-account-id"
-    zone    = "cloudposse.co"
-    records = [
+    zone       = "cloudposse.co"
+    records    = [
       {
         name  = "bastion"
         value = "192.168.1.11"
