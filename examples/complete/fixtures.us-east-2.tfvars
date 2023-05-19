@@ -7,3 +7,5 @@ stage = "test"
 name = "cf-zone"
 
 zone = "test-automation.app"
+
+account_id = "example-account-id"

@@ -1,6 +1,7 @@
 module "zone" {
   source = "../.."
 
+  account_id   = var.account_id
   zone         = var.zone
   zone_enabled = false
   argo_enabled = false
