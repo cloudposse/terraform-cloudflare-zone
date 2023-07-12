@@ -8,6 +8,20 @@ module "zone" {
 
   records = [
     {
+      name    = "@"
+      value   = "FOO"
+      type    = "TXT"
+      ttl     = 300
+      proxied = false
+    },
+    {
+      name    = "@"
+      value   = "BAR"
+      type    = "TXT"
+      ttl     = 300
+      proxied = false
+    },
+    {
       name  = format("bastion-%s", join("", var.attributes))
       value = "1.1.1.1"
       type  = "A"
