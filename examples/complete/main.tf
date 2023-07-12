@@ -8,17 +8,17 @@ module "zone" {
 
   records = [
     {
-      name = "@"
-      value = "FOO"
-      type = "TXT"
-      ttl = 300
+      name    = "@"
+      value   = "FOO"
+      type    = "TXT"
+      ttl     = 300
       proxied = false
     },
     {
-      name = "@"
-      value = "BAR"
-      type = "TXT"
-      ttl = 300
+      name    = "@"
+      value   = "BAR"
+      type    = "TXT"
+      ttl     = 300
       proxied = false
     },
     {
