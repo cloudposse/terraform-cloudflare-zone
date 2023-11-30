@@ -18,7 +18,7 @@ resource "cloudflare_ruleset" "default" {
   phase       = lookup(each.value, "phase", "http_ratelimit")
 
   dynamic "rules" {
-    for_each = lookup(overrides.value, "rules", [])
+    for_each = lookup(each.value, "rules", [])
 
     content {
       action = lookup(rules.value, "action", "block")
