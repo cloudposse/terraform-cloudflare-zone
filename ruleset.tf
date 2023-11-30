@@ -21,7 +21,7 @@ resource "cloudflare_ruleset" "default" {
 
   zone_id     = local.zone_id
   name        = lookup(each.value, "name", null) == null ? each.key : each.value.name
-  description = each.value.description
+  description = lookup(each.value, "description", "Rate limit")
   kind        = lookup(each.value, "kind", "zone")
   phase       = lookup(each.value, "phase", "http_ratelimit")
 
