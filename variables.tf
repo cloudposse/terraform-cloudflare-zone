@@ -131,3 +131,8 @@ variable "page_rules" {
   To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/cloudflare_page_rule
   DOC
 }
+
+variable "rulesets" {
+  type    = list(any)
+  default = null
+}
