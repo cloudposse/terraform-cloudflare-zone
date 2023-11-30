@@ -5,7 +5,15 @@ locals {
       rule.action,
       md5(rule.expression),
     ) => rule
-  } : {}
+    } : {
+    default = {
+      action              = "block"
+      period              = 10
+      requests_per_period = 2000
+      mitigation_timeout  = 10
+      requests_to_origin  = false
+    }
+  }
 }
 
 resource "cloudflare_ruleset" "default" {
