@@ -1,13 +1,6 @@
 locals {
-  rulesets = module.this.enabled && var.rulesets != null ? {
-    for rule in flatten(var.rulesets) :
-    format("%s-%s",
-      rule.action,
-      md5(rule.expression),
-    ) => rule
-  } : {}
+  rulesets = { for rs in var.rulesets : rs.name => rs }
 }
-
 resource "cloudflare_ruleset" "default" {
   for_each = local.rulesets
 
