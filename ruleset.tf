@@ -15,16 +15,21 @@ resource "cloudflare_ruleset" "default" {
 
     content {
       action = lookup(rules.value, "action", "block")
-      ratelimit {
-        characteristics = [
-          "cf.colo.id",
-          "ip.src"
-        ]
-        period              = lookup(each.value, "period", 10)
-        requests_per_period = lookup(each.value, "requests_per_period", 2000)
-        mitigation_timeout  = lookup(each.value, "mitigation_timeout", 10)
-        requests_to_origin  = false
+
+      dynamic "ratelimit" {
+        for_each = lookup(each.value, "ratelimit", [])
+        content {
+          characteristics = [
+            "cf.colo.id",
+            "ip.src"
+          ]
+          period              = lookup(each.value, "period", 10)
+          requests_per_period = lookup(each.value, "requests_per_period", 2000)
+          mitigation_timeout  = lookup(each.value, "mitigation_timeout", 10)
+          requests_to_origin  = false
+        }
       }
+
       expression  = "(http.request.uri.path matches \"/*\")"
       description = "Rate limiting rule"
       enabled     = true
