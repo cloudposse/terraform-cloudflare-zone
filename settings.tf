@@ -6,13 +6,9 @@ resource "cloudflare_zone_settings_override" "this" {
 
   zone_id = local.zone_id
 
-  dynamic "settings" {
-    for_each = lookup(each.value, "settings", [])
-
-    content {
-      always_use_https = try(settings.value["always_use_https"], "on")
-      ssl              = try(settings.value["ssl"], "full")
-      prefetch_preload = try(settings.value["prefetch_preload"], null)
-    }
+  settings {
+    always_use_https = lookup(each.value, "always_use_https", "on")
+    ssl              = lookup(each.value, "ssl", "full")
+    prefetch_preload = lookup(each.value, "prefetch_preload", null)
   }
 }
