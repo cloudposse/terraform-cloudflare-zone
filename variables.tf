@@ -136,3 +136,8 @@ variable "rulesets" {
   type    = list(any)
   default = null
 }
+
+variable "settings" {
+  type    = list(any)
+  default = null
+}
