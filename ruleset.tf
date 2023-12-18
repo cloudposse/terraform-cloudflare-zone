@@ -20,14 +20,14 @@ resource "cloudflare_ruleset" "default" {
         for_each = lookup(rules.value, "ratelimit", null) == null ? {} : rules.value.ratelimit
 
         content {
-          characteristics = [
+          characteristics = lookup(each.value, "characteristics", [
             "cf.colo.id",
             "ip.src"
-          ]
+          ])
           period              = lookup(each.value, "period", 10)
           requests_per_period = lookup(each.value, "requests_per_period", 2000)
           mitigation_timeout  = lookup(each.value, "mitigation_timeout", 10)
-          requests_to_origin  = false
+          requests_to_origin  = lookup(each.value, "requests_to_origin", false)
         }
       }
 
