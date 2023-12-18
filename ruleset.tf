@@ -17,7 +17,7 @@ resource "cloudflare_ruleset" "default" {
       action = lookup(rules.value, "action", "block")
 
       dynamic "ratelimit" {
-        for_each = lookup(each.value, "ratelimit", null) == null ? {} : each.value.ratelimit
+        for_each = lookup(rules.value, "ratelimit", null) == null ? {} : rules.value.ratelimit
 
         content {
           characteristics = [
@@ -31,9 +31,9 @@ resource "cloudflare_ruleset" "default" {
         }
       }
 
-      expression  = "(http.request.uri.path matches \"/*\")"
-      description = "Rate limiting rule"
-      enabled     = true
+      expression  = lookup(rules.value, "expression", "(http.request.uri.path matches \"/*\")") # enterprise only
+      description = lookup(rules.value, "description", "Rate limiting rule")
+      enabled     = lookup(rules.value, "enabled", true)
     }
   }
 }
