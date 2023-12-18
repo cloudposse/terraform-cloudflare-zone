@@ -1,6 +1,13 @@
+# locals {
+#   settings = { for sett in var.settings : local.zone_id => sett }
+# }
 locals {
-  settings = { for sett in var.settings : local.zone_id => sett }
+  settings = module.this.enabled && var.settings != null ? {
+    for sett in flatten(var.settings) :
+    local.zone_id => sett
+  } : {}
 }
+
 resource "cloudflare_zone_settings_override" "this" {
   for_each = local.settings
 

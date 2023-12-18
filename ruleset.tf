@@ -25,7 +25,7 @@ resource "cloudflare_ruleset" "default" {
         mitigation_timeout  = lookup(each.value, "mitigation_timeout", 10)
         requests_to_origin  = false
       }
-      expression  = "(http.request.uri.path matches \"/*\")" # enterprise only
+      expression  = "(http.request.uri.path matches \"/*\")"
       description = "Rate limiting rule"
       enabled     = true
     }
