@@ -7,8 +7,8 @@ resource "cloudflare_load_balancer" "default" {
   zone_id = local.zone_id
   name    = lookup(each.value, "name", null) == null ? each.key : each.value.name
 
-  fallback_pool_id = cloudflare_load_balancer_pool.default.id
-  default_pool_ids = [cloudflare_load_balancer_pool.default.id]
+  fallback_pool_id = cloudflare_load_balancer_pool.default[each.key].id
+  default_pool_ids = [cloudflare_load_balancer_pool.default[each.key].id]
 
   description     = lookup(each.value, "description", "load balancer using geo-balancing")
   proxied         = true
