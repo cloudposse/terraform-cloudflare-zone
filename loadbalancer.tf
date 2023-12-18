@@ -1,5 +1,5 @@
 locals {
-  rulesets = { for lb in var.load_balancer : lb.name => lb }
+  load_balancer = { for lb in var.load_balancer : lb.name => lb }
 }
 resource "cloudflare_load_balancer" "default" {
   for_each = local.load_balancer
