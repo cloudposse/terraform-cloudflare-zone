@@ -17,7 +17,7 @@ resource "cloudflare_ruleset" "default" {
       action = lookup(rules.value, "action", "block")
 
       dynamic "ratelimit" {
-        for_each = lookup(each.value, "ratelimit", [])
+        for_each = lookup(each.value, "ratelimit", {})
         content {
           characteristics = [
             "cf.colo.id",
