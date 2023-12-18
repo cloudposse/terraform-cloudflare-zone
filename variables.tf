@@ -141,3 +141,8 @@ variable "settings" {
   type    = list(any)
   default = null
 }
+
+variable "load_balancer" {
+  type    = list(any)
+  default = null
+}
