@@ -17,14 +17,15 @@ resource "cloudflare_ruleset" "default" {
       action = lookup(rules.value, "action", null)
 
       dynamic "ratelimit" {
-        for_each = lookup(rules.value, "ratelimit", {}) == {} ? {} : rules.value.ratelimit
+        for_each = lookup(rules.value, "ratelimit", null) == null ? {} : rules.value.ratelimit
+        # for_each = lookup(rules.value, "ratelimit", null) == null ? [] : [lookup(rules.value, "ratelimit", {})]
 
         content {
-          characteristics     = lookup(each.value, "characteristics", null)
-          period              = lookup(each.value, "period", null)
-          requests_per_period = lookup(each.value, "requests_per_period", null)
-          mitigation_timeout  = lookup(each.value, "mitigation_timeout", null)
-          requests_to_origin  = lookup(each.value, "requests_to_origin", null)
+          characteristics     = lookup(ratelimit.value, "characteristics", null)
+          period              = lookup(ratelimit.value, "period", null)
+          requests_per_period = lookup(ratelimit.value, "requests_per_period", null)
+          mitigation_timeout  = lookup(ratelimit.value, "mitigation_timeout", null)
+          requests_to_origin  = lookup(ratelimit.value, "requests_to_origin", null)
         }
       }
 
