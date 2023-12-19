@@ -10,6 +10,6 @@ resource "cloudflare_argo" "this" {
 
   zone_id = local.zone_id
 
-  tiered_caching = lookup(each.value.argo, "tiered_caching", "off")
-  smart_routing  = lookup(each.value.argo, "smart_routing", "off")
+  tiered_caching = lookup(each.value, "tiered_caching", "off")
+  smart_routing  = lookup(each.value, "smart_routing", "off")
 }
