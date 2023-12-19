@@ -30,8 +30,8 @@ resource "cloudflare_ruleset" "default" {
       }
 
       dynamic "action_parameters" {
-        # for_each = lookup(rules.value, "ratelimit", null) == null ? {} : rules.value.ratelimit
-        for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
+        for_each = rules.value.action_parameters
+        # for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
 
         content {
           edge_ttl                   = lookup(action_parameters.value, "edge_ttl", null)
