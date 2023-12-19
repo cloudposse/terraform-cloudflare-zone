@@ -146,3 +146,8 @@ variable "load_balancer" {
   type    = list(any)
   default = null
 }
+
+variable "argo" {
+  type    = list(any)
+  default = null
+}
