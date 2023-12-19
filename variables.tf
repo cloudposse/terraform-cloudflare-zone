@@ -151,3 +151,8 @@ variable "argo" {
   type    = list(any)
   default = null
 }
+variable "cache_reserve" {
+  type    = list(any)
+  default = null
+}
+
