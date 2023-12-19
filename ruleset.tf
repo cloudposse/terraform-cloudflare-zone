@@ -30,11 +30,11 @@ resource "cloudflare_ruleset" "default" {
       }
 
       dynamic "action_parameters" {
-        for_each = lookup(rules, "action_parameters", {})
+        for_each = lookup(rules, "action_parameters", [])
         # for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
 
         content {
-          origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
+          id = lookup(action_parameters.value, "id", null)
         }
       }
 
