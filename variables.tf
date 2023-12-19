@@ -156,3 +156,8 @@ variable "cache_reserve" {
   default = null
 }
 
+variable "r2_bucket" {
+  type    = list(any)
+  default = null
+}
+
