@@ -10,5 +10,5 @@ resource "cloudflare_zone_cache_reserve" "this" {
 
   zone_id = local.zone_id
 
-  enabled = lookup(each.value, "enabled", treu)
+  enabled = lookup(each.value, "enabled", true)
 }
