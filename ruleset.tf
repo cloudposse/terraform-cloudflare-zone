@@ -29,6 +29,19 @@ resource "cloudflare_ruleset" "default" {
         }
       }
 
+      dynamic "action_parameters" {
+        # for_each = lookup(rules.value, "ratelimit", null) == null ? {} : rules.value.ratelimit
+        for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
+
+        content {
+          edge_ttl                   = lookup(action_parameters.value, "edge_ttl", null)
+          browser_ttl                = lookup(action_parameters.value, "browser_ttl", null)
+          serve_stale                = lookup(action_parameters.value, "serve_stale", null)
+          cache_key                  = lookup(action_parameters.value, "cache_key", null)
+          origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
+        }
+      }
+
       expression  = lookup(rules.value, "expression", null)
       description = lookup(rules.value, "description", null)
       enabled     = lookup(rules.value, "enabled", null)
