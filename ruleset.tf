@@ -34,10 +34,6 @@ resource "cloudflare_ruleset" "default" {
         # for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
 
         content {
-          edge_ttl {}
-          browser_ttl {}
-          serve_stale {}
-          cache_key {}
           origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
         }
       }
