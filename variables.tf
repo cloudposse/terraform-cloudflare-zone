@@ -98,7 +98,7 @@ variable "healthchecks" {
 }
 
 variable "firewall_rules" {
-  type        = list(any)
+  type        = any
   default     = null
   description = <<-DOC
     paused:

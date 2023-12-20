@@ -5,7 +5,7 @@ locals {
       rule.action,
       md5(rule.expression),
     ) => rule
-  } : {}
+  } : null
 }
 
 resource "cloudflare_filter" "default" {
