@@ -2,7 +2,7 @@ locals {
   page_rules = module.this.enabled && var.page_rules != null ? {
     for pr in flatten(var.page_rules) :
     pr.target => pr
-  } : {}
+  } : null
 }
 
 resource "cloudflare_page_rule" "default" {

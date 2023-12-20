@@ -123,7 +123,7 @@ variable "firewall_rules" {
 }
 
 variable "page_rules" {
-  type        = list(any)
+  type        = any
   default     = null
   description = <<-DOC
   A list of maps of Page Rules.
