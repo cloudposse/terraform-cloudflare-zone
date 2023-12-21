@@ -34,6 +34,15 @@ resource "cloudflare_ruleset" "default" {
 
         content {
           origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
+          dynamic "header" {
+            for_each = [action_parameters.value.header]
+
+            content {
+              name      = header.name
+              operation = header.operation
+              values    = header.values
+            }
+          }
         }
       }
 
