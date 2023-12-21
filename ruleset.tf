@@ -40,7 +40,7 @@ resource "cloudflare_ruleset" "default" {
             content {
               name      = headers.name
               operation = headers.operation
-              values    = headers.values
+              value     = headers.value
             }
           }
         }
