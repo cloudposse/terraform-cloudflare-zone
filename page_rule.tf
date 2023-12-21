@@ -43,7 +43,6 @@ resource "cloudflare_page_rule" "default" {
     rocket_loader               = lookup(each.value.actions, "rocket_loader", null)
     security_level              = lookup(each.value.actions, "security_level", null)
     server_side_exclude         = lookup(each.value.actions, "server_side_exclude", null)
-    smart_errors                = lookup(each.value.actions, "smart_errors", null)
     sort_query_string_for_cache = lookup(each.value.actions, "sort_query_string_for_cache", null)
     ssl                         = lookup(each.value.actions, "ssl", null)
     true_client_ip_header       = lookup(each.value.actions, "true_client_ip_header", null)
