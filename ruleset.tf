@@ -38,9 +38,9 @@ resource "cloudflare_ruleset" "default" {
             for_each = lookup(action_parameters.value, "headers", null) == null ? [] : [lookup(action_parameters.value, "headers", {})]
 
             content {
-              name      = headers.name
-              operation = headers.operation
-              value     = headers.value
+              name      = lookup(action_parameters.value, "name", null)
+              operation = lookup(action_parameters.value, "operation", null)
+              value     = lookup(action_parameters.value, "value", null)
             }
           }
         }
