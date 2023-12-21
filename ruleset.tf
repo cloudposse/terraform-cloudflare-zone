@@ -35,7 +35,7 @@ resource "cloudflare_ruleset" "default" {
         content {
           origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
           dynamic "headers" {
-            for_each = [action_parameters.value.headers]
+            for_each = lookup(rules.value, "headers", null) == null ? [] : [lookup(rules.value, "headers", {})]
 
             content {
               name      = headers.name
