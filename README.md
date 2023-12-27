@@ -1,11 +1,8 @@
 
 <!-- markdownlint-disable -->
-# terraform-cloudflare-zone [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-cloudflare-zone.svg)](https://github.com/cloudposse/terraform-cloudflare-zone/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# terraform-cloudflare-zone<a href="https://cpco.io/homepage"><img align="right" src="https://cloudposse.com/logo-300x69.svg" width="150" /></a> [![Latest Release](https://img.shields.io/github/release/cloudposse/terraform-cloudflare-zone.svg)](https://github.com/cloudposse/terraform-cloudflare-zone/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
-[![README Header][readme_header_img]][readme_header_link]
-
-[![Cloud Posse][logo]](https://cpco.io/homepage)
 
 <!--
 
@@ -31,62 +28,33 @@
 Terraform module to provision a CloudFlare zone with: DNS records, Argo, Firewall filters and rules.
 
 ---
+> [!NOTE]
+> This project is part of Cloud Posse's comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
+> <a href="https://cpco.io/terraform-modules"><img src="https://docs.cloudposse.com/images/terraform-open-source-modules.svg" align="right" /></a>
+>
+> It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+>
+> We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
 
-This project is part of our comprehensive ["SweetOps"](https://cpco.io/sweetops) approach towards DevOps.
-[<img align="right" title="Share via Email" src="https://docs.cloudposse.com/images/ionicons/ios-email-outline-2.0.1-16x16-999999.svg"/>][share_email]
-[<img align="right" title="Share on Google+" src="https://docs.cloudposse.com/images/ionicons/social-googleplus-outline-2.0.1-16x16-999999.svg" />][share_googleplus]
-[<img align="right" title="Share on Facebook" src="https://docs.cloudposse.com/images/ionicons/social-facebook-outline-2.0.1-16x16-999999.svg" />][share_facebook]
-[<img align="right" title="Share on Reddit" src="https://docs.cloudposse.com/images/ionicons/social-reddit-outline-2.0.1-16x16-999999.svg" />][share_reddit]
-[<img align="right" title="Share on LinkedIn" src="https://docs.cloudposse.com/images/ionicons/social-linkedin-outline-2.0.1-16x16-999999.svg" />][share_linkedin]
-[<img align="right" title="Share on Twitter" src="https://docs.cloudposse.com/images/ionicons/social-twitter-outline-2.0.1-16x16-999999.svg" />][share_twitter]
-
-
-[![Terraform Open Source Modules](https://docs.cloudposse.com/images/terraform-open-source-modules.svg)][terraform_modules]
-
-
-
-It's 100% Open Source and licensed under the [APACHE2](LICENSE).
+[![README Header][readme_header_img]][readme_header_link]
 
 
 
 
-
-
-
-We literally have [*hundreds of terraform modules*][terraform_modules] that are Open Source and well-maintained. Check them out!
-
-
-
-
-
-
-## Security & Compliance [<img src="https://cloudposse.com/wp-content/uploads/2020/11/bridgecrew.svg" width="250" align="right" />](https://bridgecrew.io/)
-
-Security scanning is graciously provided by Bridgecrew. Bridgecrew is the leading fully hosted, cloud-native solution providing continuous Terraform security and compliance.
-
-| Benchmark | Description |
-|--------|---------------|
-| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
-| [![CIS KUBERNETES](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/cis_kubernetes)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=CIS+KUBERNETES+V1.5) | Center for Internet Security, KUBERNETES Compliance |
-| [![CIS AWS](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/cis_aws)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=CIS+AWS+V1.2) | Center for Internet Security, AWS Compliance |
-| [![CIS AZURE](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/cis_azure)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=CIS+AZURE+V1.1) | Center for Internet Security, AZURE Compliance |
-| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/pci)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
-| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
-| [![ISO27001](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
-| [![SOC2](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![CIS GCP](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/cis_gcp)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=CIS+GCP+V1.1) | Center for Internet Security, GCP Compliance |
-| [![HIPAA](https://www.bridgecrew.cloud/badges/github/cloudposse/terraform-cloudflare-zone/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=cloudposse%2Fterraform-cloudflare-zone&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
 
 
 
 ## Usage
 
 
-**IMPORTANT:** We do not pin modules to versions in our examples because of the
-difficulty of keeping the versions in the documentation in sync with the latest released versions.
-We highly recommend that in your code you pin the version to the exact version you are
-using so that your infrastructure remains stable, and update versions in a
-systematic way so that they do not catch you by surprise.
+
+> **Important**
+> We do not pin modules to versions in Cloud Posse's examples because of the
+> difficulty of keeping the versions in the documentation in sync with the latest released versions.
+> We highly recommend that in your code you pin the version to the exact version you are
+> using so that your infrastructure remains stable, and update versions in a
+> systematic way so that they do not catch you by surprise.
+
 
 
 For a complete example, see [examples/complete](examples/complete).
@@ -158,7 +126,7 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | >= 3.23 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.8 |
 
@@ -204,7 +172,7 @@ Available targets:
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_firewall_rules"></a> [firewall\_rules](#input\_firewall\_rules) | paused:<br>  Whether this filter is currently paused.<br>expression:<br>  The filter expression to be used.<br>description:<br>  A note that you can use to describe the purpose of the filter and rule.<br>ref:<br>  Short reference tag to quickly select related rules.<br>action:<br>  The action to apply to a matched request.<br>  Possible values: `block`, `challenge`, `allow`, `js_challenge`, `bypass`.<br>priority:<br>  The priority of the rule to allow control of processing order.<br>  A lower number indicates high priority.<br>  If not provided, any rules with a priority will be sequenced before those without.<br>products:<br>  List of products to bypass for a request when the bypass action is used.<br>  Possible values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`. | `list(any)` | `null` | no |
+| <a name="input_firewall_rules"></a> [firewall\_rules](#input\_firewall\_rules) | paused:<br>  Whether this filter is currently paused.<br>expression:<br>  The filter expression to be used.<br>description:<br>  A note that you can use to describe the purpose of the filter and rule.<br>ref:<br>  Short reference tag to quickly select related rules.<br>action:<br>  The action to apply to a matched request.<br>  Possible values: `block`, `challenge`, `allow`, `js_challenge`, `bypass`.<br>priority:<br>  The priority of the rule to allow control of processing order.<br>  A lower number indicates high priority.<br>  If not provided, any rules with a priority will be sequenced before those without.<br>products:<br>  List of products to bypass for a request when the bypass action is used.<br>  Possible values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`. | <pre>list(object({<br>    action      = string<br>    description = string<br>    expression  = string<br>    paused      = optional(bool)<br>    priority    = optional(number)<br>    products    = optional(list(string))<br>    ref         = optional(string)<br>  }))</pre> | `null` | no |
 | <a name="input_healthchecks"></a> [healthchecks](#input\_healthchecks) | A list of maps of Health Checks rules.<br>The values of map is fully compliant with `cloudflare_healthcheck` resource.<br>To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/healthcheck | `list(any)` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_jump_start"></a> [jump\_start](#input\_jump\_start) | Whether to scan for DNS records on creation. | `bool` | `false` | no |
@@ -214,7 +182,7 @@ Available targets:
 | <a name="input_labels_as_tags"></a> [labels\_as\_tags](#input\_labels\_as\_tags) | Set of labels (ID elements) to include as tags in the `tags` output.<br>Default is to include all labels.<br>Tags with empty values will not be included in the `tags` output.<br>Set to `[]` to suppress all generated tags.<br>**Notes:**<br>  The value of the `name` tag, if included, will be the `id`, not the `name`.<br>  Unlike other `null-label` inputs, the initial setting of `labels_as_tags` cannot be<br>  changed in later chained modules. Attempts to change it will be silently ignored. | `set(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | ID element. Usually the component or solution name, e.g. 'app' or 'jenkins'.<br>This is the only ID element not also included as a `tag`.<br>The "name" tag is set to the full `id` string. There is no tag with the value of the `name` input. | `string` | `null` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | ID element. Usually an abbreviation of your organization name, e.g. 'eg' or 'cp', to help ensure generated IDs are globally unique | `string` | `null` | no |
-| <a name="input_page_rules"></a> [page\_rules](#input\_page\_rules) | A list of maps of Page Rules.<br>The values of map is fully compliant with `cloudflare_page_rule` resource.<br>To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/cloudflare_page_rule | `list(any)` | `null` | no |
+| <a name="input_page_rules"></a> [page\_rules](#input\_page\_rules) | A list of maps of Page Rules.<br>The values of map is fully compliant with `cloudflare_page_rule` resource.<br>To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/page_rule | <pre>list(object({<br>    target   = string<br>    priority = optional(number)<br>    status   = optional(string)<br>    actions = object({<br>      always_use_https         = optional(bool)<br>      automatic_https_rewrites = optional(string)<br>      browser_cache_ttl        = optional(number)<br>      browser_check            = optional(string)<br>      bypass_cache_on_cookie   = optional(string)<br>      cache_by_device_type     = optional(string)<br>      cache_deception_armor    = optional(string)<br>      cache_key_fields = optional(object({<br>        cookie = optional(object({<br>          check_presence = optional(list(string))<br>          include        = optional(list(string))<br>        }))<br>        header = optional(object({<br>          check_presence = optional(list(string))<br>          exclude        = optional(list(string))<br>          include        = optional(list(string))<br>        }))<br>        host = object({<br>          resolved = optional(bool)<br>        })<br>        query_string = object({<br>          exclude = optional(list(string))<br>          include = optional(list(string))<br>          ignore  = optional(bool)<br>        })<br>      }))<br>      cache_level     = optional(string)<br>      cache_on_cookie = optional(string)<br>      cache_ttl_by_status = optional(object({<br>        codes = string<br>        ttl   = number<br>      }))<br>      disable_apps           = optional(bool)<br>      disable_performance    = optional(bool)<br>      disable_railgun        = optional(bool)<br>      disable_security       = optional(bool)<br>      disable_zaraz          = optional(bool)<br>      edge_cache_ttl         = optional(number)<br>      email_obfuscation      = optional(string)<br>      explicit_cache_control = optional(string)<br>      forwarding_url = optional(object({<br>        url         = string<br>        status_code = number<br>      }))<br>      host_header_override = optional(string)<br>      ip_geolocation       = optional(string)<br>      minify = optional(object({<br>        css  = string<br>        html = string<br>        js   = string<br>      }))<br>      mirage                      = optional(string)<br>      opportunistic_encryption    = optional(string)<br>      origin_error_page_pass_thru = optional(string)<br>      polish                      = optional(string)<br>      resolve_override            = optional(string)<br>      respect_strong_etag         = optional(string)<br>      response_buffering          = optional(string)<br>      rocket_loader               = optional(string)<br>      security_level              = optional(string)<br>      server_side_exclude         = optional(string)<br>      sort_query_string_for_cache = optional(string)<br>      ssl                         = optional(string)<br>      true_client_ip_header       = optional(string)<br>      waf                         = optional(string)<br>    })<br>  }))</pre> | `null` | no |
 | <a name="input_paused"></a> [paused](#input\_paused) | Whether this zone is paused (traffic bypasses Cloudflare) | `bool` | `false` | no |
 | <a name="input_plan"></a> [plan](#input\_plan) | The name of the commercial plan to apply to the zone. Possible values: `free`, `pro`, `business`, `enterprise` | `string` | `"free"` | no |
 | <a name="input_records"></a> [records](#input\_records) | name:<br>  The name of the record.<br>type:<br>  The type of the record.<br>value:<br>  The value of the record.<br>ttl:<br>  The TTL of the record.<br>  Default value: 1.<br>priority:<br>  The priority of the record.<br>proxied:<br>  Whether the record gets Cloudflare's origin protection.<br>  Default value: false. | `list(any)` | `[]` | no |
@@ -245,15 +213,6 @@ Available targets:
 <!-- markdownlint-restore -->
 
 
-
-## Share the Love
-
-Like this project? Please give it a ★ on [our GitHub](https://github.com/cloudposse/terraform-cloudflare-zone)! (it helps us **a lot**)
-
-Are you using this project or any of our other projects? Consider [leaving a testimonial][testimonial]. =)
-
-
-
 ## Related Projects
 
 Check out these related projects.
@@ -269,16 +228,49 @@ For additional context, refer to some of these links.
 - [terraform-provider-cloudflare](https://registry.terraform.io/providers/cloudflare/cloudflare/latest) - Cloudflare Terraform Provider
 
 
-## Help
+## ✨ Contributing
 
-**Got a question?** We got answers.
+This project is under active development, and we encourage contributions from our community. 
+Many thanks to our outstanding contributors:
 
-File a GitHub [issue](https://github.com/cloudposse/terraform-cloudflare-zone/issues), send us an [email][email] or join our [Slack Community][slack].
+<a href="https://github.com/cloudposse/terraform-cloudflare-zone/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=cloudposse/terraform-cloudflare-zone&max=24" />
+</a>
 
-[![README Commercial Support][readme_commercial_support_img]][readme_commercial_support_link]
+### 🐛 Bug Reports & Feature Requests
 
-## DevOps Accelerator for Startups
+Please use the [issue tracker](https://github.com/cloudposse/terraform-cloudflare-zone/issues) to report any bugs or file feature requests.
 
+### 💻 Developing
+
+If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with Cloud Posse's other projects, we would love to hear from you! Shoot us an [email][email].
+
+In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
+
+ 1. **Fork** the repo on GitHub
+ 2. **Clone** the project to your own machine
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull Request** so that we can review your changes
+
+**NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
+
+### 🌎 Slack Community
+
+Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build totally *sweet* infrastructure.
+
+### 📰 Newsletter
+
+Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover.
+
+### 📆 Office Hours <img src="https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png" align="right" />
+
+[Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
+
+## About 
+
+This project is maintained and funded by [Cloud Posse, LLC][website]. 
+<a href="https://cpco.io/homepage"><img src="https://cloudposse.com/logo-300x69.svg" align="right" /></a>
 
 We are a [**DevOps Accelerator**][commercial_support]. We'll help you build your cloud infrastructure from the ground up so you can own it. Then we'll show you how to operate it and stick around for as long as you need us.
 
@@ -299,54 +291,7 @@ We deliver 10x the value for a fraction of the cost of a full-time engineer. Our
 - **Code Reviews.** You'll receive constructive feedback on Pull Requests.
 - **Bug Fixes.** We'll rapidly work with you to fix any bugs in our projects.
 
-## Slack Community
-
-Join our [Open Source Community][slack] on Slack. It's **FREE** for everyone! Our "SweetOps" community is where you get to talk with others who share a similar vision for how to rollout and manage infrastructure. This is the best place to talk shop, ask questions, solicit feedback, and work together as a community to build totally *sweet* infrastructure.
-
-## Discourse Forums
-
-Participate in our [Discourse Forums][discourse]. Here you'll find answers to commonly asked questions. Most questions will be related to the enormous number of projects we support on our GitHub. Come here to collaborate on answers, find solutions, and get ideas about the products and services we value. It only takes a minute to get started! Just sign in with SSO using your GitHub account.
-
-## Newsletter
-
-Sign up for [our newsletter][newsletter] that covers everything on our technology radar.  Receive updates on what we're up to on GitHub as well as awesome new projects we discover.
-
-## Office Hours
-
-[Join us every Wednesday via Zoom][office_hours] for our weekly "Lunch & Learn" sessions. It's **FREE** for everyone!
-
-[![zoom](https://img.cloudposse.com/fit-in/200x200/https://cloudposse.com/wp-content/uploads/2019/08/Powered-by-Zoom.png")][office_hours]
-
-## Contributing
-
-### Bug Reports & Feature Requests
-
-Please use the [issue tracker](https://github.com/cloudposse/terraform-cloudflare-zone/issues) to report any bugs or file feature requests.
-
-### Developing
-
-If you are interested in being a contributor and want to get involved in developing this project or [help out](https://cpco.io/help-out) with our other projects, we would love to hear from you! Shoot us an [email][email].
-
-In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
-
- 1. **Fork** the repo on GitHub
- 2. **Clone** the project to your own machine
- 3. **Commit** changes to your own branch
- 4. **Push** your work back up to your fork
- 5. Submit a **Pull Request** so that we can review your changes
-
-**NOTE:** Be sure to merge the latest changes from "upstream" before making a pull request!
-
-
-
-## Copyrights
-
-Copyright © 2021-2023 [Cloud Posse, LLC](https://cloudposse.com)
-
-
-
-
-
+[![README Commercial Support][readme_commercial_support_img]][readme_commercial_support_link]
 ## License
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -372,41 +317,12 @@ specific language governing permissions and limitations
 under the License.
 ```
 
-
-
-
-
-
-
-
-
 ## Trademarks
 
 All other trademarks referenced herein are the property of their respective owners.
+## Copyrights
 
-## About
-
-This project is maintained and funded by [Cloud Posse, LLC][website]. Like it? Please let us know by [leaving a testimonial][testimonial]!
-
-[![Cloud Posse][logo]][website]
-
-We're a [DevOps Professional Services][hire] company based in Los Angeles, CA. We ❤️  [Open Source Software][we_love_open_source].
-
-We offer [paid support][commercial_support] on all of our projects.
-
-Check out [our other projects][github], [follow us on twitter][twitter], [apply for a job][jobs], or [hire us][hire] to help with your cloud strategy and implementation.
-
-
-
-### Contributors
-
-<!-- markdownlint-disable -->
-|  [![Vladimir Syromyatnikov][SweetOps_avatar]][SweetOps_homepage]<br/>[Vladimir Syromyatnikov][SweetOps_homepage] |
-|---|
-<!-- markdownlint-restore -->
-
-  [SweetOps_homepage]: https://github.com/SweetOps
-  [SweetOps_avatar]: https://img.cloudposse.com/150x150/https://github.com/SweetOps.png
+Copyright © 2021-2023 [Cloud Posse, LLC](https://cloudposse.com)
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
@@ -418,12 +334,9 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [jobs]: https://cpco.io/jobs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=jobs
   [hire]: https://cpco.io/hire?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=hire
   [slack]: https://cpco.io/slack?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=slack
-  [linkedin]: https://cpco.io/linkedin?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=linkedin
   [twitter]: https://cpco.io/twitter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=twitter
-  [testimonial]: https://cpco.io/leave-testimonial?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=testimonial
   [office_hours]: https://cloudposse.com/office-hours?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=office_hours
   [newsletter]: https://cpco.io/newsletter?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=newsletter
-  [discourse]: https://ask.sweetops.com/?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=discourse
   [email]: https://cpco.io/email?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=email
   [commercial_support]: https://cpco.io/commercial-support?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=commercial_support
   [we_love_open_source]: https://cpco.io/we-love-open-source?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=we_love_open_source
@@ -434,11 +347,5 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [readme_footer_link]: https://cloudposse.com/readme/footer/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=readme_footer_link
   [readme_commercial_support_img]: https://cloudposse.com/readme/commercial-support/img
   [readme_commercial_support_link]: https://cloudposse.com/readme/commercial-support/link?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-cloudflare-zone&utm_content=readme_commercial_support_link
-  [share_twitter]: https://twitter.com/intent/tweet/?text=terraform-cloudflare-zone&url=https://github.com/cloudposse/terraform-cloudflare-zone
-  [share_linkedin]: https://www.linkedin.com/shareArticle?mini=true&title=terraform-cloudflare-zone&url=https://github.com/cloudposse/terraform-cloudflare-zone
-  [share_reddit]: https://reddit.com/submit/?url=https://github.com/cloudposse/terraform-cloudflare-zone
-  [share_facebook]: https://facebook.com/sharer/sharer.php?u=https://github.com/cloudposse/terraform-cloudflare-zone
-  [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-cloudflare-zone
-  [share_email]: mailto:?subject=terraform-cloudflare-zone&body=https://github.com/cloudposse/terraform-cloudflare-zone
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-cloudflare-zone?pixel&cs=github&cm=readme&an=terraform-cloudflare-zone
 <!-- markdownlint-restore -->
