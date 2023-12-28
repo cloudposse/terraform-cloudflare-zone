@@ -1,10 +1,3 @@
-# locals {
-#   settings = module.this.enabled && var.settings != [] ? {
-#     for sett in flatten(var.settings) :
-#     local.zone_id => sett
-#   } : {}
-# }
-
 locals {
   settings = module.this.enabled && var.settings != null ? {
     for zone_id, sett in var.settings :
