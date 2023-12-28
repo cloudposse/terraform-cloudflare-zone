@@ -21,6 +21,6 @@ resource "cloudflare_zone_settings_override" "this" {
     browser_cache_ttl = lookup(each.value.settings, "browser_cache_ttl", 14400)
   }
   depends_on = [
-    cloudflare_zone.default[local.zone_id].id
+    cloudflare_zone.default[*].id
   ]
 }
