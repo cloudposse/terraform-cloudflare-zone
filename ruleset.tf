@@ -49,8 +49,7 @@ resource "cloudflare_ruleset" "default" {
 
             content {
               dynamic "rules" {
-                for_each = lookup(overrides.value, "rules", null) == null ? [] : [lookup(overrides.value, "rules", {})]
-
+                for_each = lookup(overrides.value, "rules", [])
                 content {
                   id                = lookup(rules.value, "id", null)
                   sensitivity_level = lookup(rules.value, "sensitivity_level", null)
