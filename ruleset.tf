@@ -33,6 +33,7 @@ resource "cloudflare_ruleset" "default" {
         for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
 
         content {
+          id                         = lookup(action_parameters.value, "id", null)
           origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
           dynamic "headers" {
             for_each = lookup(action_parameters.value, "headers", null) == null ? [] : [lookup(action_parameters.value, "headers", {})]
@@ -41,6 +42,20 @@ resource "cloudflare_ruleset" "default" {
               name      = lookup(headers.value, "name", null)
               operation = lookup(headers.value, "operation", null)
               value     = lookup(headers.value, "value", null)
+            }
+          }
+          dynamic "overrides" {
+            for_each = lookup(action_parameters.value, "overrides", null) == null ? [] : [lookup(action_parameters.value, "overrides", {})]
+
+            content {
+              dynamic "rules" {
+                for_each = lookup(overrides.value, "rules", null) == null ? [] : [lookup(overrides.value, "rules", {})]
+
+                content {
+                  id                = lookup(rules.value, "id", null)
+                  sensitivity_level = lookup(rules.value, "sensitivity_level", null)
+                }
+              }
             }
           }
         }
