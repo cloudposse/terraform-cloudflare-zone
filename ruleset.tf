@@ -44,6 +44,20 @@ resource "cloudflare_ruleset" "default" {
               value     = lookup(headers.value, "value", null)
             }
           }
+          dynamic "from_value" {
+            for_each = lookup(action_parameters.value, "from_value", null) == null ? [] : [lookup(action_parameters.value, "from_value", {})]
+
+            content {
+              status_code = lookup(from_value.value, "status_code", null)
+              dynamic "target_url" {
+                for_each = lookup(from_value.value, "target_url", [])
+                content {
+                  value = lookup(target_url.value, "value", null)
+                }
+              }
+              preserve_query_string = lookup(from_value.value, "preserve_query_string", null)
+            }
+          }
           dynamic "overrides" {
             for_each = lookup(action_parameters.value, "overrides", null) == null ? [] : [lookup(action_parameters.value, "overrides", {})]
 
