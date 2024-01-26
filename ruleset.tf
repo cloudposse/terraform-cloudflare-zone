@@ -50,7 +50,7 @@ resource "cloudflare_ruleset" "default" {
             content {
               status_code = lookup(from_value.value, "status_code", null)
               dynamic "target_url" {
-                for_each = lookup(from_value.value, "target_url", [])
+                for_each = lookup(from_value.value, "target_url", null) == null ? [] : [lookup(from_value.value, "target_url", {})]
                 content {
                   value = lookup(target_url.value, "value", null)
                 }
