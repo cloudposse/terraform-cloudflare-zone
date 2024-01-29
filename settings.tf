@@ -1,5 +1,5 @@
 locals {
-  settings = module.this.enabled && var.settings != null ? {
+  settings = local.zone_enabled && var.settings != null ? {
     for zone_id, sett in var.settings :
     zone_id => {
       always_use_https  = lookup(sett, "always_use_https", "on")
