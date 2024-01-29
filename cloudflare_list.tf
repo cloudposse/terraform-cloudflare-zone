@@ -1,7 +1,7 @@
 locals {
   cloudflare_lists = module.this.enabled && var.cloudflare_lists != null ? {
-    for idx, list_config in flatten(var.cloudflare_lists) :
-    lidx => list_config
+    for idx, list_config in var.cloudflare_lists :
+    idx => list_config
   } : {}
 }
 
