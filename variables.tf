@@ -161,3 +161,8 @@ variable "r2_bucket" {
   default = null
 }
 
+variable "cloudflare_lists" {
+  description = "Map of ip lists"
+  type        = any
+  default     = null
+}
