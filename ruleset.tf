@@ -2,6 +2,9 @@ locals {
   rulesets = { for rs in var.rulesets : rs.name => rs }
 }
 resource "cloudflare_ruleset" "default" {
+  depends_on = [
+    cloudflare_list.this
+  ]
   for_each = local.rulesets
 
   zone_id     = local.zone_id
