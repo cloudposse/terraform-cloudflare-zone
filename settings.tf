@@ -19,6 +19,9 @@ resource "cloudflare_zone_settings_override" "this" {
     ssl               = each.value.ssl
     prefetch_preload  = each.value.prefetch_preload
     browser_cache_ttl = each.value.browser_cache_ttl
+    brotli            = each.value.browsebrotlir_cache_ttl
+    http2             = each.value.http2
+    http3             = each.value.http3
   }
   depends_on = [
     cloudflare_zone.default
