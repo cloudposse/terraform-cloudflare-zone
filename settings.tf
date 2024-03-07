@@ -6,6 +6,9 @@ locals {
       ssl               = lookup(sett, "ssl", "full")
       prefetch_preload  = lookup(sett, "prefetch_preload", null)
       browser_cache_ttl = lookup(sett, "browser_cache_ttl", 14400)
+      brotli            = lookup(sett, "brotli", "on")
+      http2             = lookup(sett, "http2", "on")
+      http3             = lookup(sett, "http3", "on")
     }
   } : {}
 }
