@@ -14,35 +14,37 @@ license: APACHE2
 
 # Copyrights
 copyrights:
-- name: Cloud Posse, LLC
-  url: https://cloudposse.com
-  year: '2021'
+  - name: Cloud Posse, LLC
+    url: https://cloudposse.com
+    year: '2021'
 
 # Canonical GitHub repo
 github_repo: cloudposse/terraform-cloudflare-zone
 
 # Badges to display
 badges:
-- name: Latest Release
-  image: https://img.shields.io/github/release/cloudposse/terraform-cloudflare-zone.svg
-  url: https://github.com/cloudposse/terraform-cloudflare-zone/releases/latest
-- name: Slack Community
-  image: https://slack.cloudposse.com/badge.svg
-  url: https://slack.cloudposse.com
+  - name: Latest Release
+    image: https://img.shields.io/github/release/cloudposse/terraform-cloudflare-zone.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-cloudflare-zone/releases/latest
+  - name: Last Updated
+    image: https://img.shields.io/github/last-commit/cloudposse/terraform-cloudflare-zone.svg?style=for-the-badge
+    url: https://github.com/cloudposse/terraform-cloudflare-zone/commits
+  - name: Slack Community
+    image: https://slack.cloudposse.com/for-the-badge.svg
+    url: https://slack.cloudposse.com
 
 # List any related terraform modules that this module may be used with or that this module depends on.
 related:
-- name: terraform-null-label
-  description: Terraform Module to define a consistent naming convention by (namespace,
-    stage, name, [attributes])
-  url: https://github.com/cloudposse/terraform-null-label
-- name: terraform-cloudflare-waf-rulesets
-  description: Terraform module to manage CloudFlare WAF rulesetes
-  url: https://github.com/cloudposse/terraform-cloudflare-waf-rulesets
+  - name: terraform-null-label
+    description: Terraform Module to define a consistent naming convention by (namespace, stage, name, [attributes])
+    url: https://github.com/cloudposse/terraform-null-label
+  - name: terraform-cloudflare-waf-rulesets
+    description: Terraform module to manage CloudFlare WAF rulesetes
+    url: https://github.com/cloudposse/terraform-cloudflare-waf-rulesets
 references:
-- name: terraform-provider-cloudflare
-  description: Cloudflare Terraform Provider
-  url: https://registry.terraform.io/providers/cloudflare/cloudflare/latest
+  - name: terraform-provider-cloudflare
+    description: Cloudflare Terraform Provider
+    url: https://registry.terraform.io/providers/cloudflare/cloudflare/latest
 description: |-
   Terraform module to provision a CloudFlare zone with: DNS records, Argo, Firewall filters and rules.
 
@@ -105,10 +107,8 @@ examples: |-
 
 # Other files to include in this README from the project folder
 include:
-- docs/targets.md
-- docs/terraform.md
+  - docs/targets.md
+  - docs/terraform.md
 
 # Contributors to this project
-contributors:
-- name: Vladimir Syromyatnikov
-  github: SweetOps
+contributors: []
