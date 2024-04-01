@@ -48,7 +48,7 @@ resource "cloudflare_ruleset" "default" {
             }
           }
           dynamic "edge_ttl" {
-            for_each = lookup(action_parameters.value, "edge_ttl", null) == null ? [] : [lookup(action_parameters.value, "headers", {})]
+            for_each = lookup(action_parameters.value, "edge_ttl", null) == null ? [] : [lookup(action_parameters.value, "edge_ttl", {})]
 
             content {
               name      = lookup(edge_ttl.value, "mode", null)
