@@ -7,7 +7,6 @@ locals {
       prefetch_preload  = lookup(sett, "prefetch_preload", null)
       browser_cache_ttl = lookup(sett, "browser_cache_ttl", 14400)
       brotli            = lookup(sett, "brotli", "on")
-      http2             = lookup(sett, "http2", "on")
       http3             = lookup(sett, "http3", "on")
     }
   } : {}
@@ -23,7 +22,6 @@ resource "cloudflare_zone_settings_override" "this" {
     prefetch_preload  = each.value.prefetch_preload
     browser_cache_ttl = each.value.browser_cache_ttl
     brotli            = each.value.brotli
-    http2             = each.value.http2
     http3             = each.value.http3
   }
   depends_on = [
