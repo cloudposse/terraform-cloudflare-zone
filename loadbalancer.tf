@@ -31,7 +31,7 @@ resource "cloudflare_load_balancer" "default" {
 }
 
 resource "cloudflare_load_balancer_pool" "default" {
-  for_each = local.load_balancer
+  for_each = { for lb in local.load_balancer : lb.name => lb.pools }
 
   account_id         = var.account_id
   name               = each.value.name
@@ -42,33 +42,13 @@ resource "cloudflare_load_balancer_pool" "default" {
   minimum_origins    = each.value.min_origins
   notification_email = each.value.email
 
-  load_shedding {
-    default_percent = each.value.load_shedding.default_percent
-    default_policy  = each.value.load_shedding.default_policy
-    session_percent = each.value.load_shedding.session_percent
-    session_policy  = each.value.load_shedding.session_policy
-  }
-
-  origin_steering {
-    policy = each.value.steering.policy
-  }
-
   dynamic "origins" {
-    for_each = each.value.origin_configs
+    for_each = each.value
 
     content {
       name    = origins.value.name
       address = origins.value.address
       enabled = origins.value.enabled
-
-      dynamic "header" {
-        for_each = [origins.value.header]
-
-        content {
-          header = header.key
-          values = header.value
-        }
-      }
     }
   }
 }
