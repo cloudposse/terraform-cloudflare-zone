@@ -1,5 +1,5 @@
 locals {
-  load_balancer = { for lb in var.load_balancer : lb.name => lb }
+  load_balancer = { for lb in var.load_balancer : lb.name => lb.pools }
 }
 resource "cloudflare_load_balancer" "default" {
   for_each = local.load_balancer
@@ -8,7 +8,7 @@ resource "cloudflare_load_balancer" "default" {
   name    = lookup(each.value, "name", null) == null ? each.key : each.value.name
 
   fallback_pool_id = cloudflare_load_balancer_pool.default[each.key].id
-  default_pool_ids = [cloudflare_load_balancer_pool.default[each.key].id]
+  default_pool_ids = [for pool in values(cloudflare_load_balancer_pool.default) : pool[each.key].id]
 
   description     = lookup(each.value, "description", "load balancer using geo-balancing")
   proxied         = true
@@ -31,7 +31,7 @@ resource "cloudflare_load_balancer" "default" {
 }
 
 resource "cloudflare_load_balancer_pool" "default" {
-  for_each = { for lb in local.load_balancer : lb.name => lb.pools }
+  for_each = { for name, lb in local.load_balancer : name => lb }
 
   account_id         = var.account_id
   name               = each.value.name
