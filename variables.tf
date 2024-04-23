@@ -142,7 +142,7 @@ variable "settings" {
   default = null
 }
 
-variable "load_balancer" {
+variable "load_balancers" {
   type    = list(any)
   default = null
 }
