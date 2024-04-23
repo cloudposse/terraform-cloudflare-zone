@@ -69,3 +69,7 @@ output "page_rule_targets_to_ids" {
 output "load_balancers" {
   value = local.load_balancers
 }
+
+output "lb_pools" {
+  value = local.lb_pools
+}

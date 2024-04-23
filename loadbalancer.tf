@@ -1,5 +1,14 @@
 locals {
   load_balancers = { for lb in var.load_balancers : lb.name => lb }
+  lb_pools = toset(flatten([
+    for lb in local.load_balancers :
+    [
+      for pool in lb.pools : {
+        name    = pool.name
+        lb_name = lb.name
+      }
+    ]
+  ]))
 }
 
 # resource "cloudflare_load_balancer" "default" {
@@ -18,7 +27,7 @@ locals {
 # }
 
 # resource "cloudflare_load_balancer_pool" "default" {
-#   for_each = { for pool in local.load_balancers : pool.pools
+#   for_each = { for pool in local.load_balancers : pool.pools }
 
 #   account_id         = var.account_id
 #   name               = lookup(each.value, "name", null)
