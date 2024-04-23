@@ -26,25 +26,27 @@ locals {
 #   steering_policy = "dynamic_latency"
 # }
 
-# resource "cloudflare_load_balancer_pool" "default" {
-#   for_each = { for pool in local.load_balancers : pool.pools }
+resource "cloudflare_load_balancer_pool" "default" {
+  for_each = {
+    for pool in local.lb_pools : "${pool.lb_name}/${pool.name}" => pool
+  }
 
-#   account_id         = var.account_id
-#   name               = lookup(each.value, "name", null)
-#   latitude           = lookup(each.value, "latitude", null)
-#   longitude          = lookup(each.value, "longitude", null)
-#   description        = lookup(each.value, "description", null)
-#   enabled            = lookup(each.value, "enabled", null)
-#   minimum_origins    = lookup(each.value, "minimum_origins", null)
-#   notification_email = lookup(each.value, "notification_email", null)
+  account_id         = var.account_id
+  name               = lookup(each.value, "name", null)
+  latitude           = lookup(each.value, "latitude", null)
+  longitude          = lookup(each.value, "longitude", null)
+  description        = lookup(each.value, "description", null)
+  enabled            = lookup(each.value, "enabled", null)
+  minimum_origins    = lookup(each.value, "minimum_origins", null)
+  notification_email = lookup(each.value, "notification_email", null)
 
-#   dynamic "origins" {
-#     for_each = lookup(each.value, "origins", {})
+  dynamic "origins" {
+    for_each = lookup(each.value, "origins", {})
 
-#     content {
-#       name    = lookup(origins.value, "name", null)
-#       address = lookup(origins.value, "address", null)
-#       enabled = lookup(origins.value, "enabled", null)
-#     }
-#   }
-# }
+    content {
+      name    = lookup(origins.value, "name", null)
+      address = lookup(origins.value, "address", null)
+      enabled = lookup(origins.value, "enabled", null)
+    }
+  }
+}
