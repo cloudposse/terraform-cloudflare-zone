@@ -11,6 +11,23 @@ locals {
       }
     ]
   ]))
+  lb_monitors = toset(flatten([
+    for lb in local.load_balancers :
+    [
+      for monitor in lb.monitors : {
+        name           = monitor.name
+        lb_name        = lb.name
+        type           = monitor.type
+        expected_codes = monitor.expected_codes
+        method         = monitor.method
+        timeout        = monitor.timeout
+        path           = monitor.path
+        interval       = monitor.interval
+        retries        = monitor.retries
+        description    = monitor.description
+      }
+    ]
+  ]))
 }
 
 # resource "cloudflare_load_balancer" "default" {
@@ -41,6 +58,7 @@ resource "cloudflare_load_balancer_pool" "default" {
   enabled            = lookup(each.value, "enabled", null)
   minimum_origins    = lookup(each.value, "minimum_origins", null)
   notification_email = lookup(each.value, "notification_email", null)
+  monitor            = cloudflare_load_balancer_monitor.default["${pool.lb_name}/${pool.name}"].id
 
   dynamic "origins" {
     for_each = lookup(each.value, "origins", [])
@@ -51,4 +69,24 @@ resource "cloudflare_load_balancer_pool" "default" {
       enabled = lookup(origins.value, "enabled", null)
     }
   }
+}
+
+resource "cloudflare_load_balancer_monitor" "default" {
+  for_each = {
+    for monitor in local.lb_monitors : "${monitor.lb_name}/${monitor.name}" => monitor
+  }
+  account_id     = var.account_id
+  type           = lookup(each.value, "name", null)
+  expected_body  = lookup(each.value, "expected_body", null)
+  expected_codes = lookup(each.value, "expected_codes", null)
+  method         = lookup(each.value, "method", null)
+  timeout        = lookup(each.value, "timeout", null)
+  path           = lookup(each.value, "path", null)
+  interval       = lookup(each.value, "interval", null)
+  retries        = lookup(each.value, "retries", null)
+  description    = lookup(each.value, "description", null)
+
+  allow_insecure   = lookup(each.value, "allow_insecure", null)
+  follow_redirects = lookup(each.value, "follow_redirects", null)
+  probe_zone       = lookup(each.value, "probe_zone", null)
 }
