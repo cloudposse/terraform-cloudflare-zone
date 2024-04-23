@@ -67,5 +67,5 @@ output "page_rule_targets_to_ids" {
 }
 
 output "load_balancers" {
-  local.load_balancers
+  value = local.load_balancers
 }
