@@ -76,7 +76,8 @@ resource "cloudflare_load_balancer_monitor" "default" {
     for monitor in local.lb_monitors : "${monitor.lb_name}/${monitor.name}" => monitor
   }
   account_id     = var.account_id
-  type           = lookup(each.value, "name", null)
+  name           = lookup(each.value, "name", null)
+  type           = lookup(each.value, "type", null)
   expected_body  = lookup(each.value, "expected_body", null)
   expected_codes = lookup(each.value, "expected_codes", null)
   method         = lookup(each.value, "method", null)
