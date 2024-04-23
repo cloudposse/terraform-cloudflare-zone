@@ -65,3 +65,7 @@ output "page_rule_targets_to_ids" {
     if length(local.page_rules) > 0
   }
 }
+
+output "load_balancers" {
+  local.load_balancers
+}
