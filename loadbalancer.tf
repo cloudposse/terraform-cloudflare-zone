@@ -6,6 +6,8 @@ locals {
       for pool in lb.pools : {
         name    = pool.name
         lb_name = lb.name
+        enabled = pool.enabled
+        origins = pool.origins
       }
     ]
   ]))
