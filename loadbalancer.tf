@@ -58,7 +58,7 @@ resource "cloudflare_load_balancer_pool" "default" {
   enabled            = lookup(each.value, "enabled", null)
   minimum_origins    = lookup(each.value, "minimum_origins", null)
   notification_email = lookup(each.value, "notification_email", null)
-  monitor            = cloudflare_load_balancer_monitor.default["${pool.lb_name}/${pool.name}"].id
+  # monitor            = cloudflare_load_balancer_monitor.default["${pool.lb_name}/${pool.name}"].id
 
   dynamic "origins" {
     for_each = lookup(each.value, "origins", [])
