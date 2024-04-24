@@ -72,7 +72,7 @@ resource "cloudflare_load_balancer_pool" "default" {
 
 resource "cloudflare_load_balancer_monitor" "default" {
   for_each = {
-    for monitor in local.lb_monitors : "${monitor.lb_name}/${monitor.name}" => monitor
+    for monitor in local.lb_monitors : "${monitor.lb_name}/${monitor.description}" => monitor
   }
   account_id     = var.account_id
   type           = lookup(each.value, "type", null)
