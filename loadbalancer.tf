@@ -29,20 +29,20 @@ locals {
   ]))
 }
 
-# resource "cloudflare_load_balancer" "default" {
-#   for_each = local.load_balancers
+resource "cloudflare_load_balancer" "default" {
+  for_each = local.load_balancers
 
-#   zone_id = local.zone_id
-#   name    = lookup(each.value, "name", null) == null ? each.key : each.value.name
+  zone_id = local.zone_id
+  name    = lookup(each.value, "name", null) == null ? each.key : each.value.name
 
-#   fallback_pool_id = cloudflare_load_balancer_pool.default["each.key/eu-central-1"].id
-#   # default_pool_ids = [for pool in values(cloudflare_load_balancer_pool.default) : pool[each.key].id]
-#   default_pool_ids = [for k, v in cloudflare_load_balancer_pool.default : k => v.id]
+  fallback_pool_id = cloudflare_load_balancer_pool.default["${lookup(each.value, "name", null)}/eu-central-1"].id
+  # default_pool_ids = [for pool in values(cloudflare_load_balancer_pool.default) : pool[each.key].id]
+  default_pool_ids = [for k, v in cloudflare_load_balancer_pool.default : k => v.id]
 
-#   description     = lookup(each.value, "description", "load balancer using geo-balancing")
-#   proxied         = true
-#   steering_policy = "dynamic_latency"
-# }
+  description     = lookup(each.value, "description", "load balancer using geo-balancing")
+  proxied         = true
+  steering_policy = "dynamic_latency"
+}
 
 resource "cloudflare_load_balancer_pool" "default" {
   for_each = {
