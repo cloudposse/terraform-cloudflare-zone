@@ -15,7 +15,6 @@ locals {
     for lb in local.load_balancers :
     [
       for monitor in lb.monitors : {
-        name           = monitor.name
         lb_name        = lb.name
         type           = monitor.type
         expected_codes = monitor.expected_codes
@@ -58,7 +57,7 @@ resource "cloudflare_load_balancer_pool" "default" {
   enabled            = lookup(each.value, "enabled", null)
   minimum_origins    = lookup(each.value, "minimum_origins", null)
   notification_email = lookup(each.value, "notification_email", null)
-  # monitor            = cloudflare_load_balancer_monitor.default["${pool.lb_name}/${pool.name}"].id
+  monitor            = cloudflare_load_balancer_monitor.default["${plookup(each.value, "lb_name", null)}/${plookup(each.value, "name", null)}"].id
 
   dynamic "origins" {
     for_each = lookup(each.value, "origins", [])
