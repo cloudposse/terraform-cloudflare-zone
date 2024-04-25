@@ -46,7 +46,7 @@ resource "cloudflare_load_balancer" "default" {
   session_affinity_ttl = lookup(each.value, "session_affinity_ttl", null)
 
   dynamic "adaptive_routing" {
-    for_each = lookup(each.value, "adaptive_routing", {})
+    for_each = lookup(each.value, "adaptive_routing", null) == null ? [] : [lookup(each.value, "adaptive_routing", {})]
 
     content {
       failover_across_pools = lookup(adaptive_routing.value, "failover_across_pools", null)
