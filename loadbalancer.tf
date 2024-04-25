@@ -53,7 +53,7 @@ resource "cloudflare_load_balancer" "default" {
     }
   }
   dynamic "session_affinity_attributes" {
-    for_each = lookup(each.value, "session_affinity_attributes", [])
+    for_each = lookup(each.value, "session_affinity_attributes", null) == null ? [] : [lookup(each.value, "session_affinity_attributes", {})]
 
     content {
       drain_duration         = lookup(session_affinity_attributes.value, "drain_duration", null)
