@@ -57,7 +57,6 @@ resource "cloudflare_load_balancer" "default" {
 
     content {
       drain_duration         = lookup(session_affinity_attributes.value, "drain_duration", null)
-      headers                = lookup(session_affinity_attributes.value, "headers", null)
       require_all_headers    = lookup(session_affinity_attributes.value, "require_all_headers", null)
       samesite               = lookup(session_affinity_attributes.value, "samesite", null)
       secure                 = lookup(session_affinity_attributes.value, "secure", null)
