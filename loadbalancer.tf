@@ -39,9 +39,32 @@ resource "cloudflare_load_balancer" "default" {
   # default_pool_ids = [for pool in values(cloudflare_load_balancer_pool.default) : pool[each.key].id]
   default_pool_ids = [for k, v in cloudflare_load_balancer_pool.default : v.id]
 
-  description     = lookup(each.value, "description", "load balancer using geo-balancing")
-  proxied         = true
-  steering_policy = "dynamic_latency"
+  description          = lookup(each.value, "description", "load balancer using geo-balancing")
+  proxied              = true
+  steering_policy      = "dynamic_latency"
+  session_affinity     = lookup(each.value, "session_affinity", null)
+  session_affinity_ttl = lookup(each.value, "session_affinity_ttl", null)
+
+  dynamic "adaptive_routing" {
+    for_each = lookup(each.value, "adaptive_routing", [])
+
+    content {
+      failover_across_pools = lookup(adaptive_routing.value, "failover_across_pools", null)
+    }
+  }
+  dynamic "session_affinity_attributes" {
+    for_each = lookup(each.value, "session_affinity_attributes", [])
+
+    content {
+      drain_duration         = lookup(session_affinity_attributes.value, "drain_duration", null)
+      headers                = lookup(session_affinity_attributes.value, "headers", null)
+      require_all_headers    = lookup(session_affinity_attributes.value, "require_all_headers", null)
+      samesite               = lookup(session_affinity_attributes.value, "samesite", null)
+      secure                 = lookup(session_affinity_attributes.value, "secure", null)
+      zero_downtime_failover = lookup(session_affinity_attributes.value, "zero_downtime_failover", null)
+
+    }
+  }
 }
 
 resource "cloudflare_load_balancer_pool" "default" {
