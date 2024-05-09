@@ -166,3 +166,9 @@ variable "cloudflare_lists" {
   type        = any
   default     = null
 }
+
+
+variable "fallback_pool_id" {
+  type    = string
+  default = "eu-central-1"
+}
