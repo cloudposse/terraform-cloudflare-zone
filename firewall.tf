@@ -8,24 +8,19 @@ locals {
   } : {}
 }
 
-resource "cloudflare_filter" "default" {
-  for_each = local.firewall_rules
-
+resource "cloudflare_ruleset" "default" {
   zone_id     = local.zone_id
+  name        = each.value.name
   description = each.value.description
-  expression  = each.value.expression
-  paused      = lookup(each.value, "paused", null)
-  ref         = lookup(each.value, "ref", null)
-}
+  kind        = each.value.kind
+  phase       = each.value.phase
 
-resource "cloudflare_firewall_rule" "default" {
-  for_each = local.firewall_rules
-
-  zone_id     = local.zone_id
-  description = each.value.description
-  action      = each.value.action
-  priority    = lookup(each.value, "priority", null)
-  paused      = lookup(each.value, "paused", null)
-  products    = lookup(each.value, "products", null)
-  filter_id   = cloudflare_filter.default[each.key].id
+  rules {
+    for_each = local.firewall_rules
+    action   = each.value.action
+    action_parameters = each.value.action_parameters
+    description = each.value.description
+    expression  = each.value.expression
+    enabled     = true
+  }
 }
