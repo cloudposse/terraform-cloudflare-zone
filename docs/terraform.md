@@ -4,15 +4,15 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | >= 3.23 |
+| <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | >= 4.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.8 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | >= 3.23 |
-| <a name="provider_time"></a> [time](#provider\_time) | >= 0.8 |
+| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | 4.34.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.11.2 |
 
 ## Modules
 
@@ -25,8 +25,6 @@
 | Name | Type |
 |------|------|
 | [cloudflare_argo.default](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/argo) | resource |
-| [cloudflare_filter.default](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/filter) | resource |
-| [cloudflare_firewall_rule.default](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/firewall_rule) | resource |
 | [cloudflare_healthcheck.default](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/healthcheck) | resource |
 | [cloudflare_page_rule.default](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/page_rule) | resource |
 | [cloudflare_record.default](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/record) | resource |
@@ -49,7 +47,6 @@
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_firewall_rules"></a> [firewall\_rules](#input\_firewall\_rules) | paused:<br>  Whether this filter is currently paused.<br>expression:<br>  The filter expression to be used.<br>description:<br>  A note that you can use to describe the purpose of the filter and rule.<br>ref:<br>  Short reference tag to quickly select related rules.<br>action:<br>  The action to apply to a matched request.<br>  Possible values: `block`, `challenge`, `allow`, `js_challenge`, `bypass`.<br>priority:<br>  The priority of the rule to allow control of processing order.<br>  A lower number indicates high priority.<br>  If not provided, any rules with a priority will be sequenced before those without.<br>products:<br>  List of products to bypass for a request when the bypass action is used.<br>  Possible values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`. | `list(any)` | `null` | no |
 | <a name="input_healthchecks"></a> [healthchecks](#input\_healthchecks) | A list of maps of Health Checks rules.<br>The values of map is fully compliant with `cloudflare_healthcheck` resource.<br>To get more info see https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/healthcheck | `list(any)` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_jump_start"></a> [jump\_start](#input\_jump\_start) | Whether to scan for DNS records on creation. | `bool` | `false` | no |
@@ -75,8 +72,6 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_filter_ids"></a> [filter\_ids](#output\_filter\_ids) | A list of filter IDs. |
-| <a name="output_firewall_rule_ids"></a> [firewall\_rule\_ids](#output\_firewall\_rule\_ids) | A list of firewall rule IDs. |
 | <a name="output_id"></a> [id](#output\_id) | The zone ID. |
 | <a name="output_meta_phishing_detected"></a> [meta\_phishing\_detected](#output\_meta\_phishing\_detected) | Indicates if URLs on the zone have been identified as hosting phishing content. |
 | <a name="output_meta_wildcard_proxiable"></a> [meta\_wildcard\_proxiable](#output\_meta\_wildcard\_proxiable) | Indicates whether wildcard DNS records can receive Cloudflare security and performance features. |

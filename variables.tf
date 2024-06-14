@@ -97,31 +97,6 @@ variable "healthchecks" {
   DOC
 }
 
-variable "firewall_rules" {
-  type        = list(any)
-  default     = null
-  description = <<-DOC
-    paused:
-      Whether this filter is currently paused.
-    expression:
-      The filter expression to be used.
-    description:
-      A note that you can use to describe the purpose of the filter and rule.
-    ref:
-      Short reference tag to quickly select related rules.
-    action:
-      The action to apply to a matched request.
-      Possible values: `block`, `challenge`, `allow`, `js_challenge`, `bypass`.
-    priority:
-      The priority of the rule to allow control of processing order.
-      A lower number indicates high priority.
-      If not provided, any rules with a priority will be sequenced before those without.
-    products:
-      List of products to bypass for a request when the bypass action is used.
-      Possible values: `zoneLockdown`, `uaBlock`, `bic`, `hot`, `securityLevel`, `rateLimit`, `waf`.
-  DOC
-}
-
 variable "page_rules" {
   type        = list(any)
   default     = null

@@ -35,14 +35,6 @@ module "zone" {
     }
   ]
 
-  firewall_rules = [
-    {
-      expression  = "(ip.src eq 192.168.0.1)"
-      description = "Block access from 192.168.0.1"
-      action      = "block"
-    }
-  ]
-
   healthchecks = [
     {
       address = format("bastion-%s.%s", join("", var.attributes), var.zone)
