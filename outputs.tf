@@ -12,16 +12,6 @@ output "record_hostnames_to_ids" {
   }
 }
 
-output "filter_ids" {
-  description = "A list of filter IDs."
-  value       = try(values(cloudflare_filter.default)[*]["id"], null)
-}
-
-output "firewall_rule_ids" {
-  description = "A list of firewall rule IDs."
-  value       = try(values(cloudflare_firewall_rule.default)[*]["id"], null)
-}
-
 output "plan" {
   description = "The name of the commercial plan to apply to the zone."
   value       = join("", cloudflare_zone.default[*].plan)
