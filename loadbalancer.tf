@@ -10,6 +10,7 @@ locals {
         origins = pool.origins
         latitude  = lb.steering_policy == "proximity" ? pool.latitude : null
         longitude = lb.steering_policy == "proximity" ? pool.longitude : null
+        origin_steering_policy = lookup(pool, "origin_steering_policy", "random")
       }
     ]
   ]))
@@ -101,6 +102,11 @@ resource "cloudflare_load_balancer_pool" "default" {
       enabled = lookup(origins.value, "enabled", null)
     }
   }
+
+  origin_steering {
+    policy = lookup(each.value, "origin_steering_policy", "random")
+  }
+
 }
 
 resource "cloudflare_load_balancer_monitor" "default" {
