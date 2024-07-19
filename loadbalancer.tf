@@ -8,6 +8,9 @@ locals {
         lb_name = lb.name
         enabled = pool.enabled
         origins = pool.origins
+        latitude  = lb.steering_policy == "proximity" ? pool.latitude : null
+        longitude = lb.steering_policy == "proximity" ? pool.longitude : null
+        origin_steering_policy = lookup(pool, "origin_steering_policy", "random")
       }
     ]
   ]))
@@ -41,7 +44,7 @@ resource "cloudflare_load_balancer" "default" {
 
   description          = lookup(each.value, "description", "load balancer using geo-balancing")
   proxied              = true
-  steering_policy      = "dynamic_latency"
+  steering_policy      = lookup(each.value, "steering_policy", "dynamic_latency")
   session_affinity     = lookup(each.value, "session_affinity", null)
   session_affinity_ttl = lookup(each.value, "session_affinity_ttl", null)
 
@@ -62,7 +65,15 @@ resource "cloudflare_load_balancer" "default" {
       samesite               = lookup(session_affinity_attributes.value, "samesite", null)
       secure                 = lookup(session_affinity_attributes.value, "secure", null)
       zero_downtime_failover = lookup(session_affinity_attributes.value, "zero_downtime_failover", null)
+    }
+  }
 
+  dynamic "region_pools" {
+    for_each = lookup(each.value, "steering_policy", null) == "geo" ? lookup(each.value, "region_pools", []) : []
+
+    content {
+      region   = lookup(region_pools.value, "region", null)
+      pool_ids = [for pool in lookup(region_pools.value, "pool_ids", []) : cloudflare_load_balancer_pool.default["${lookup(each.value, "name", null)}/${pool}"].id]
     }
   }
 }
@@ -91,6 +102,11 @@ resource "cloudflare_load_balancer_pool" "default" {
       enabled = lookup(origins.value, "enabled", null)
     }
   }
+
+  origin_steering {
+    policy = lookup(each.value, "origin_steering_policy", "random")
+  }
+
 }
 
 resource "cloudflare_load_balancer_monitor" "default" {
