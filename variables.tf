@@ -37,6 +37,12 @@ variable "records" {
   DOC
 }
 
+variable "records_default_proxied" {
+  type        = bool
+  description = "Default value for proxied"
+  default     = false
+}
+
 variable "paused" {
   type        = bool
   description = "Whether this zone is paused (traffic bypasses Cloudflare)"
