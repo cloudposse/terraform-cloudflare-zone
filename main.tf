@@ -10,6 +10,7 @@ locals {
     for index, record in var.records :
     try(record.key, format("%s-%s-%s", record.name, record.type, record.value)) => record
   } : {}
+  records_default_proxied = var.records_default_proxied
 }
 
 data "cloudflare_zones" "default" {
