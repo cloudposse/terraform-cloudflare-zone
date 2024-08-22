@@ -33,7 +33,7 @@ variable "records" {
       The priority of the record.
     proxied:
       Whether the record gets Cloudflare's origin protection.
-      Default value: false.
+      Default value: Taken from records_default_proxied variable
   DOC
 }
 
