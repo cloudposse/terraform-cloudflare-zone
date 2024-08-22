@@ -11,8 +11,8 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | 4.34.0 |
-| <a name="provider_time"></a> [time](#provider\_time) | 0.11.2 |
+| <a name="provider_cloudflare"></a> [cloudflare](#provider\_cloudflare) | >= 4.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | >= 0.8 |
 
 ## Modules
 
