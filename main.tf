@@ -41,7 +41,7 @@ resource "cloudflare_record" "default" {
   value    = each.value.value
   comment  = lookup(each.value, "comment", null)
   priority = lookup(each.value, "priority", null)
-  proxied  = lookup(each.value, "proxied", false)
+  proxied  = lookup(each.value, "proxied", local.records_default_proxied)
   ttl      = lookup(each.value, "ttl", 1)
 }
 
