@@ -24,6 +24,8 @@ variable "records" {
       The type of the record.
     value:
       The value of the record.
+    comment:
+      Optional comment for the record.
     ttl:
       The TTL of the record.
       Default value: 1.
