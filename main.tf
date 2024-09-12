@@ -38,6 +38,7 @@ resource "cloudflare_record" "default" {
   name     = each.value.name
   type     = each.value.type
   value    = each.value.value
+  comment  = lookup(each.value, "comment", null)
   priority = lookup(each.value, "priority", null)
   proxied  = lookup(each.value, "proxied", false)
   ttl      = lookup(each.value, "ttl", 1)
