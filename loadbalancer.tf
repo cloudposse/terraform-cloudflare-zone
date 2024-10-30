@@ -4,12 +4,12 @@ locals {
     for lb in local.load_balancers :
     [
       for pool in lb.pools : {
-        name    = pool.name
-        lb_name = lb.name
-        enabled = pool.enabled
-        origins = pool.origins
-        latitude  = lb.steering_policy == "proximity" ? pool.latitude : null
-        longitude = lb.steering_policy == "proximity" ? pool.longitude : null
+        name                   = pool.name
+        lb_name                = lb.name
+        enabled                = pool.enabled
+        origins                = pool.origins
+        latitude               = lb.steering_policy == "proximity" ? pool.latitude : null
+        longitude              = lb.steering_policy == "proximity" ? pool.longitude : null
         origin_steering_policy = lookup(pool, "origin_steering_policy", "random")
       }
     ]
@@ -100,6 +100,7 @@ resource "cloudflare_load_balancer_pool" "default" {
       name    = lookup(origins.value, "name", null)
       address = lookup(origins.value, "address", null)
       enabled = lookup(origins.value, "enabled", null)
+      weight  = lookup(origins.value, "weight", null)
     }
   }
 
