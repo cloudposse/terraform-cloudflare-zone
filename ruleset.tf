@@ -5,7 +5,7 @@ locals {
   } : {}
 }
 
-resource "cloudflare_page_rule" "default" {
+resource "cloudflare_page_rule" "ruleset" {
   for_each = local.rulesets
 
   kind  = each.value.kind
