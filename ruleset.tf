@@ -1,97 +1,95 @@
 locals {
-  rulesets = module.this.enabled && var.rulesets != null ? {
-    for rs in flatten(var.rulesets) :
-    rs.target => rs
-  } : {}
+  rulesets = { for rs in var.rulesets : rs.name => rs }
 }
-
-resource "cloudflare_page_rule" "ruleset" {
+resource "cloudflare_ruleset" "default" {
+  depends_on = [
+    cloudflare_list.this
+  ]
   for_each = local.rulesets
 
-  kind  = each.value.kind
-  name  = each.value.name
-  phase = each.value.phase
-
-
-  account_id                 = lookup(each.value, "account_id", null)
-  zone_id                    = lookup(each.value, "zone_id", null)
-  description                = lookup(each.value, "description", null)
-  shareable_entitlement_name = lookup(each.value, "shareable_entitlement_name", null)
+  zone_id     = local.zone_id
+  name        = lookup(each.value, "name", null) == null ? each.key : each.value.name
+  description = lookup(each.value, "description", "Rate limit")
+  kind        = lookup(each.value, "kind", "zone")
+  phase       = lookup(each.value, "phase", "http_ratelimit")
 
   dynamic "rules" {
-    for_each = each.value.rules
+    for_each = lookup(each.value, "rules", [])
 
     content {
-
-      expression = rules.value.expression
-
-      action      = rules.value.action
-      description = rules.value.description
-      enabled     = rules.value.enabled
-
-      dynamic "action_parameters" {
-        for_each = rules.value.action_parameters
-
-        content {
-          browser_ttl                = action_parameters.value.browser_ttl
-          cache                      = action_parameters.value.cache
-          cache_key                  = action_parameters.value.cache_key
-          cookie_fields              = action_parameters.value.cookie_fields
-          edge_ttl                   = action_parameters.value.edge_ttl
-          from_list                  = action_parameters.value.from_list
-          from_value                 = action_parameters.value.from_value
-          headers                    = action_parameters.value.headers
-          host_header                = action_parameters.value.host_header
-          ip                         = action_parameters.value.ip
-          increment                  = action_parameters.value.increment
-          matched_data               = action_parameters.value.matched_data
-          origin                     = action_parameters.value.origin
-          origin_error_page_passthru = action_parameters.value.origin_error_page_passthru
-          overrides                  = action_parameters.value.overrides
-          phases                     = action_parameters.value.phases
-          products                   = action_parameters.value.products
-          request_fields             = action_parameters.value.request_fields
-          respect_strong_etags       = action_parameters.value.respect_strong_etags
-          response                   = action_parameters.value.response
-          response_fields            = action_parameters.value.response_fields
-          rulesets                   = action_parameters.value.rulesets
-          serve_stale                = action_parameters.value.serve_stale
-          uri                        = action_parameters.value.uri
-          version                    = action_parameters.value.version
-        }
-      }
-
-
-      dynamic "exposed_credential_check" {
-        for_each = rules.value.exposed_credential_check
-
-        content {
-          password_expression = exposed_credential_check.value.password_expression
-          username_expression = exposed_credential_check.value.username_expression
-        }
-      }
-
-      dynamic "logging" {
-        for_each = rules.value.logging
-
-        content {
-          enabled = logging.value.enabled
-          status  = logging.value.status
-        }
-      }
+      action = lookup(rules.value, "action", null)
 
       dynamic "ratelimit" {
-        for_each = rules.value.ratelimit
+        # for_each = lookup(rules.value, "ratelimit", null) == null ? {} : rules.value.ratelimit
+        for_each = lookup(rules.value, "ratelimit", null) == null ? [] : [lookup(rules.value, "ratelimit", {})]
 
         content {
-          characteristics     = ratelimit.value.characteristics
-          counting_expression = ratelimit.value.counting_expression
-          mitigation_timeout  = ratelimit.value.mitigation_timeout
-          period              = ratelimit.value.period
-          requests_per_period = ratelimit.value.requests_per_period
-          requests_to_origin  = ratelimit.value.requests_to_origin
+          characteristics     = lookup(ratelimit.value, "characteristics", null)
+          period              = lookup(ratelimit.value, "period", null)
+          requests_per_period = lookup(ratelimit.value, "requests_per_period", null)
+          mitigation_timeout  = lookup(ratelimit.value, "mitigation_timeout", null)
+          requests_to_origin  = lookup(ratelimit.value, "requests_to_origin", null)
         }
       }
+
+      dynamic "action_parameters" {
+        for_each = lookup(rules.value, "action_parameters", null) == null ? [] : [lookup(rules.value, "action_parameters", {})]
+
+        content {
+          id                         = lookup(action_parameters.value, "id", null)
+          origin_error_page_passthru = lookup(action_parameters.value, "origin_error_page_passthru", null)
+          cache                      = lookup(action_parameters.value, "cache", null)
+
+          dynamic "headers" {
+            for_each = lookup(action_parameters.value, "headers", null) == null ? [] : [lookup(action_parameters.value, "headers", {})]
+
+            content {
+              name      = lookup(headers.value, "name", null)
+              operation = lookup(headers.value, "operation", null)
+              value     = lookup(headers.value, "value", null)
+            }
+          }
+          dynamic "edge_ttl" {
+            for_each = lookup(action_parameters.value, "edge_ttl", null) == null ? [] : [lookup(action_parameters.value, "edge_ttl", {})]
+
+            content {
+              mode    = lookup(edge_ttl.value, "mode", null)
+              default = lookup(edge_ttl.value, "default", null)
+            }
+          }
+          dynamic "from_value" {
+            for_each = lookup(action_parameters.value, "from_value", null) == null ? [] : [lookup(action_parameters.value, "from_value", {})]
+
+            content {
+              status_code = lookup(from_value.value, "status_code", null)
+              dynamic "target_url" {
+                for_each = lookup(from_value.value, "target_url", null) == null ? [] : [lookup(from_value.value, "target_url", {})]
+                content {
+                  value = lookup(target_url.value, "value", null)
+                }
+              }
+              preserve_query_string = lookup(from_value.value, "preserve_query_string", null)
+            }
+          }
+          dynamic "overrides" {
+            for_each = lookup(action_parameters.value, "overrides", null) == null ? [] : [lookup(action_parameters.value, "overrides", {})]
+
+            content {
+              dynamic "rules" {
+                for_each = lookup(overrides.value, "rules", [])
+                content {
+                  id                = lookup(rules.value, "id", null)
+                  sensitivity_level = lookup(rules.value, "sensitivity_level", null)
+                }
+              }
+            }
+          }
+        }
+      }
+
+      expression  = lookup(rules.value, "expression", null)
+      description = lookup(rules.value, "description", null)
+      enabled     = lookup(rules.value, "enabled", null)
     }
   }
 }
