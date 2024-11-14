@@ -34,6 +34,8 @@ variable "records" {
     proxied:
       Whether the record gets Cloudflare's origin protection.
       Default value: false.
+    key:
+      Specify resource name to be used by Cloudflare resource. Defaults to automatic value.
   DOC
 }
 
