@@ -8,6 +8,7 @@ locals {
         lb_name                = lb.name
         enabled                = pool.enabled
         origins                = pool.origins
+        notification_email     = pool.notification_email
         latitude               = lb.steering_policy == "proximity" ? pool.latitude : null
         longitude              = lb.steering_policy == "proximity" ? pool.longitude : null
         origin_steering_policy = lookup(pool, "origin_steering_policy", "random")
