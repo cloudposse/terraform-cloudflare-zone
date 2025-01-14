@@ -40,7 +40,12 @@ resource "cloudflare_load_balancer" "default" {
 
   fallback_pool_id = cloudflare_load_balancer_pool.default["${lookup(each.value, "name", null)}/${lookup(each.value, "fallback", null)}"].id
   # default_pool_ids = [for pool in values(cloudflare_load_balancer_pool.default) : pool[each.key].id]
-  default_pool_ids = [for k, v in cloudflare_load_balancer_pool.default : v.id]
+  # default_pool_ids = [for k, v in cloudflare_load_balancer_pool.default : v.id]
+  default_pool_ids = [
+    for pool in values(cloudflare_load_balancer_pool.default) :
+    pool.id
+    if contains([for p in lookup(each.value, "pools", []) : p.name], pool.name)
+  ]
 
   description          = lookup(each.value, "description", "load balancer using geo-balancing")
   proxied              = true
