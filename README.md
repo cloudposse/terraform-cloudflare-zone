@@ -3,7 +3,7 @@
 <!-- markdownlint-disable -->
 <a href="https://cpco.io/homepage"><img src="https://github.com/cloudposse/terraform-cloudflare-zone/blob/main/.github/banner.png?raw=true" alt="Project Banner"/></a><br/>
     <p align="right">
-<a href="https://github.com/cloudposse/terraform-cloudflare-zone/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-cloudflare-zone.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-cloudflare-zone/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-cloudflare-zone.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
+<a href="https://github.com/cloudposse/terraform-cloudflare-zone/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-cloudflare-zone.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-cloudflare-zone/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-cloudflare-zone.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://cloudposse.com/slack"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
 <!-- markdownlint-restore -->
 
 <!--
@@ -108,18 +108,6 @@ Here is an example of using this module:
 
 
 <!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
-```
-<!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -204,6 +192,11 @@ Available targets:
 | <a name="output_vanity_name_servers"></a> [vanity\_name\_servers](#output\_vanity\_name\_servers) | A list of Vanity Nameservers. |
 | <a name="output_verification_key"></a> [verification\_key](#output\_verification\_key) | Contains the TXT record value to validate domain ownership. This is only populated for zones of type `partial`. |
 <!-- markdownlint-restore -->
+
+
+
+
+
 
 
 ## Related Projects
